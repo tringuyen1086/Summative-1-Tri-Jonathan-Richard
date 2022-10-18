@@ -38,6 +38,7 @@ public class ServiceLayer {
         this.invoiceRepository = invoiceRepository;
     }
 
+// Game
     @Transactional
     public Game saveGame (Game model){
         return null;
@@ -83,20 +84,23 @@ public class ServiceLayer {
         gameRepository.deleteById(id);
     }
 
-
+// Console
     public void saveConsole(Console console) {
         consoleRepository.saveConsole(console);
     }
 
 
 
-
-    public void deleteTShirtById(int id) {
-        Optional<TShirt> deleteThis = tshirtRepository.findById(id);
-        if(deleteThis.isPresent()) {
-            tshirtRepository.deleteById(id);
-        }else {
-            throw new IllegalArgumentException("No matches for this Id");
-        }
+// TShirt
+public void deleteTShirtById(int id) {
+    Optional<TShirt> deleteThis = tshirtRepository.findById(id);
+    if(deleteThis.isPresent()) {
+        tshirtRepository.deleteById(id);
+    }else {
+        throw new IllegalArgumentException("No matches for this Id");
     }
+}
+
+// Invoice
+
 }
