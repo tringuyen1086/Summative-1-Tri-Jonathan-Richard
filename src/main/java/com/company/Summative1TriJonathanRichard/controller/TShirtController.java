@@ -19,45 +19,45 @@ public class TShirtController {
     ServiceLayer serviceLayer;
 
     @Autowired
-    TShirtRepository rpo;
+    TShirtRepository tshirtRepository;
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getAllTShirts(){
-        return rpo.findAll();
+        return tshirtRepository.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<TShirt> getTShirtById(@PathVariable int id){
-        return Optional.of(rpo.getReferenceById(id));
+        return Optional.of(tshirtRepository.getReferenceById(id));
     }
 
     @GetMapping("/color/{color}")
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getTShirtByColor(@PathVariable String color){
-        return rpo.findByColor(color);
+        return tshirtRepository.findByColor(color);
     }
 
     @GetMapping("/size/{size}")
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getTShirtBySize(@PathVariable String size){
-        return rpo.findBySize(size);
+        return tshirtRepository.findBySize(size);
     }
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewTShirt(@RequestBody TShirt tShirt){
-        rpo.save(tShirt);
+        tshirtRepository.save(tShirt);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTShirtById(@RequestBody TShirt tShirt ,@PathVariable int id){
         // This will go into service layer later...
-        Optional<TShirt> updateThis = rpo.findById(id);
+        Optional<TShirt> updateThis = tshirtRepository.findById(id);
         if(updateThis.isPresent()) {
             //System.out.println(updateThis);
             tShirt.setId(id);
-            rpo.save(tShirt);
+            tshirtRepository.save(tShirt);
         }else{
             //error can be change later
             throw new IllegalArgumentException("No matches for this Id.");
@@ -68,11 +68,6 @@ public class TShirtController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTShirtById(@PathVariable int id){
         // This will go into service layer later..
-        Optional<TShirt> deleteThis = rpo.findById(id);
-        if(deleteThis.isPresent()) {
-            rpo.deleteById(id);
-        }else {
-            throw new IllegalArgumentException("No matches for this Id");
-        }
+        serviceLayer.deleteTShirtById(id);
     }
 }

@@ -2,28 +2,30 @@ package com.company.Summative1TriJonathanRichard.service;
 
 import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
+import com.company.Summative1TriJonathanRichard.model.TShirt;
 import com.company.Summative1TriJonathanRichard.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class ServiceLayer {
 
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
 
-    ConsoleRepository consoleRepository;
+    private ConsoleRepository consoleRepository;
 
-    TShirtRepository tshirtRepository;
+    private TShirtRepository tshirtRepository;
 
-    ProcessingFeeRepository processingFeeRepository;
+    private ProcessingFeeRepository processingFeeRepository;
 
-    SalesTaxRateRepository salesTaxRateRepository;
+    private SalesTaxRateRepository salesTaxRateRepository;
 
-    InvoiceRepository invoiceRepository;
+    private InvoiceRepository invoiceRepository;
 
     @Autowired
     public ServiceLayer(GameRepository gameRepository, ConsoleRepository consoleRepository,
@@ -90,7 +92,14 @@ public class ServiceLayer {
 
 
 // TShirt
-
+public void deleteTShirtById(int id) {
+    Optional<TShirt> deleteThis = tshirtRepository.findById(id);
+    if(deleteThis.isPresent()) {
+        tshirtRepository.deleteById(id);
+    }else {
+        throw new IllegalArgumentException("No matches for this Id");
+    }
+}
 
 // Invoice
 
