@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/tshirt")
 
-public class TshirtController {
+public class TShirtController {
 
     @Autowired
     ServiceLayer serviceLayer;

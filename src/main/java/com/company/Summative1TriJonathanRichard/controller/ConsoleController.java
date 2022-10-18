@@ -32,19 +32,18 @@ public class ConsoleController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel consoleViewModel) {
-        //console.setConsole_id(idCounter++);
-        //consoleList.add(console);
-        return serviceLayer.saveConsole(consoleViewModel);
+    public Console createConsole(@RequestBody @Valid Console console) {
+         serviceLayer.saveConsole(console);
+         return console;
     }
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public List<ConsoleViewModel> getAllConsoles(){
+    public List<Console> getAllConsoles(){
         return consoleList;
     }
 
-    @GetMapping(value="get/{consoleId}") // need to revise the path
+    @GetMapping("/{consoleId}") // need to revise the path
     @ResponseStatus(value = HttpStatus.OK)
     public Console getConsoleById(@PathVariable int consoleId){
         Console foundConsole = null;
@@ -61,7 +60,7 @@ public class ConsoleController {
         }
         return foundConsole;
     }
-    @RequestMapping(value = "/put/{consoleId}", method = RequestMethod.PUT) // need to revise the path
+    @PutMapping("/{consoleId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateConsoleById(@PathVariable int consoleId, @RequestBody @Valid Console console) {
 
@@ -86,7 +85,7 @@ public class ConsoleController {
             consoleList.set(index, console);
         }
     }
-    @RequestMapping(value = "/delete/{consoleId}", method = RequestMethod.DELETE) // need to revise the path
+    @RequestMapping("/{consoleId}") // need to revise the path
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteConsoleById(@PathVariable int consoleId) {
         int index = -1;
@@ -103,6 +102,5 @@ public class ConsoleController {
         }
         else throw new NotFoundException("Console not found.");
     }
-    ServiceLayer service;
 }
 

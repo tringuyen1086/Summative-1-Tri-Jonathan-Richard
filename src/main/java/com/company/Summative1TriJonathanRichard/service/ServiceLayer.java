@@ -1,5 +1,6 @@
 package com.company.Summative1TriJonathanRichard.service;
 
+import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
 import com.company.Summative1TriJonathanRichard.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +82,7 @@ public class ServiceLayer {
     }
 
 
-
-
-
-
+    public void saveConsole(Console console) {
+        consoleRepository.saveConsole(console);
+    }
 }
