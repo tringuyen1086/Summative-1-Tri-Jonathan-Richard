@@ -1,7 +1,7 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
 import com.company.Summative1TriJonathanRichard.model.TShirt;
-import com.company.Summative1TriJonathanRichard.repository.TshirtRepository;
+import com.company.Summative1TriJonathanRichard.repository.TShirtRepository;
 import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class TShirtController {
     ServiceLayer serviceLayer;
 
     @Autowired
-    TshirtRepository tshirtRepository;
+    TShirtRepository tshirtRepository;
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getAllTShirts(){
@@ -68,11 +68,6 @@ public class TShirtController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTShirtById(@PathVariable int id){
         // This will go into service layer later..
-        Optional<TShirt> deleteThis = tshirtRepository.findById(id);
-        if(deleteThis.isPresent()) {
-            tshirtRepository.deleteById(id);
-        }else {
-            throw new IllegalArgumentException("No matches for this Id");
-        }
+        serviceLayer.deleteTShirtById(id);
     }
 }

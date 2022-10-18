@@ -1,5 +1,6 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
+import com.company.Summative1TriJonathanRichard.repository.TShirtRepository;
 import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,7 +23,9 @@ public class TShirtControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
+    private TShirtRepository tshirtRepository;
+    @MockBean
     private ServiceLayer serviceLayer;
 
     private ObjectMapper mapper = new ObjectMapper();

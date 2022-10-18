@@ -2,32 +2,34 @@ package com.company.Summative1TriJonathanRichard.service;
 
 import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
+import com.company.Summative1TriJonathanRichard.model.TShirt;
 import com.company.Summative1TriJonathanRichard.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class ServiceLayer {
 
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
 
-    ConsoleRepository consoleRepository;
+    private ConsoleRepository consoleRepository;
 
-    TshirtRepository tshirtRepository;
+    private TShirtRepository tshirtRepository;
 
-    ProcessingFeeRepository processingFeeRepository;
+    private ProcessingFeeRepository processingFeeRepository;
 
-    SalesTaxRateRepository salesTaxRateRepository;
+    private SalesTaxRateRepository salesTaxRateRepository;
 
-    InvoiceRepository invoiceRepository;
+    private InvoiceRepository invoiceRepository;
 
     @Autowired
     public ServiceLayer(GameRepository gameRepository, ConsoleRepository consoleRepository,
-                        TshirtRepository tshirtRepository, ProcessingFeeRepository processingFeeRepository, SalesTaxRateRepository salesTaxRateRepository, InvoiceRepository invoiceRepository) {
+                        TShirtRepository tshirtRepository, ProcessingFeeRepository processingFeeRepository, SalesTaxRateRepository salesTaxRateRepository, InvoiceRepository invoiceRepository) {
         this.gameRepository = gameRepository;
         this.consoleRepository = consoleRepository;
         this.tshirtRepository = tshirtRepository;
@@ -84,5 +86,17 @@ public class ServiceLayer {
 
     public void saveConsole(Console console) {
         consoleRepository.saveConsole(console);
+    }
+
+
+
+
+    public void deleteTShirtById(int id) {
+        Optional<TShirt> deleteThis = tshirtRepository.findById(id);
+        if(deleteThis.isPresent()) {
+            tshirtRepository.deleteById(id);
+        }else {
+            throw new IllegalArgumentException("No matches for this Id");
+        }
     }
 }
