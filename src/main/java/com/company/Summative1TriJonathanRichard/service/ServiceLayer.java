@@ -36,6 +36,7 @@ public class ServiceLayer {
         this.invoiceRepository = invoiceRepository;
     }
 
+// Game
     @Transactional
     public Game saveGame (Game model){
         return null;
@@ -81,8 +82,16 @@ public class ServiceLayer {
         gameRepository.deleteById(id);
     }
 
-
+// Console
     public void saveConsole(Console console) {
         consoleRepository.saveConsole(console);
     }
+
+
+
+// TShirt
+
+
+// Invoice
+
 }
