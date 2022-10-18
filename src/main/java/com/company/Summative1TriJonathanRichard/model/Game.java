@@ -3,7 +3,8 @@ package com.company.Summative1TriJonathanRichard.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -11,28 +12,39 @@ import java.util.Objects;
 @Table(name = "game")
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "game_id")
+    @NotNull
     private Integer id;
 
+    @NotNull
+    @Size(max = 50)
     private String title;
 
     @Column(name = "esrb_rating")
+    @NotNull
+    @Size(max = 50)
     private String esrbRating;
 
+    @NotNull
+    @Size(max = 255)
     private String description;
 
-    private BigDecimal price;
+    @NotNull
+    private double price;
 
+    @NotNull
+    @Size(max = 50)
     private String studio;
 
+    @NotNull
     private int quantity;
 
     public Game(){
 
     }
 
-    public Game(Integer id, String title, String esrbRating, String description, BigDecimal price, String studio, int quantity) {
+    public Game(Integer id, String title, String esrbRating, String description, double price, String studio, int quantity) {
         this.id = id;
         this.title = title;
         this.esrbRating = esrbRating;
@@ -42,7 +54,7 @@ public class Game {
         this.quantity = quantity;
     }
 
-    public Game(String title, String esrbRating, String description, BigDecimal price, String studio, int quantity) {
+    public Game(String title, String esrbRating, String description, double price, String studio, int quantity) {
         this.title = title;
         this.esrbRating = esrbRating;
         this.description = description;
@@ -83,11 +95,11 @@ public class Game {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -112,7 +124,7 @@ public class Game {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return quantity == game.quantity && Objects.equals(id, game.id) && Objects.equals(title, game.title) && Objects.equals(esrbRating, game.esrbRating) && Objects.equals(description, game.description) && Objects.equals(price, game.price) && Objects.equals(studio, game.studio);
+        return id == game.id && Double.compare(game.price, price) == 0 && quantity == game.quantity && Objects.equals(title, game.title) && Objects.equals(esrbRating, game.esrbRating) && Objects.equals(description, game.description) && Objects.equals(studio, game.studio);
     }
 
     @Override

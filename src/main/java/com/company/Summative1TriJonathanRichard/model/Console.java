@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -12,38 +13,52 @@ import java.util.Objects;
 @Table(name = "console")
 public class Console {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int console_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
+    private Integer id;
+
     @NotNull(message = "You must supply a value for model")
+    @Size(max = 50)
     private String model;
+
     @NotNull(message = "You must supply a value for manufacturer")
+    @Size(max = 50)
     private String manufacturer;
-    private String memory_amount;
+
+    @Column(name = "memory_amount")
+    @Size(max = 20)
+    private String memoryAmount;
+
+    @Size(max = 20)
     private String processor;
+
     @NotNull(message = "You must supply a value for decimal")
-    private double decimal;
+    private double price;
+
     @NotNull(message = "You must supply a value for int")
     private int quantity;
 
-    public Console(int console_id, String model, String manufacturer, String memory_amount, String processor, double decimal, int quantity) {
-        this.console_id = console_id;
+
+    public Console(){
+
+    }
+
+    public Console(Integer id, String model, String manufacturer, String memoryAmount, String processor, double price, int quantity) {
+        this.id = id;
         this.model = model;
         this.manufacturer = manufacturer;
-        this.memory_amount = memory_amount;
+        this.memoryAmount = memoryAmount;
         this.processor = processor;
-        this.decimal = decimal;
+        this.price = price;
         this.quantity = quantity;
     }
 
-    public Console() {
+    public Integer getId() {
+        return id;
     }
 
-    public int getConsole_id() {
-        return console_id;
-    }
-
-    public void setConsole_id(int console_id) {
-        this.console_id = console_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getModel() {
@@ -62,12 +77,12 @@ public class Console {
         this.manufacturer = manufacturer;
     }
 
-    public String getMemory_amount() {
-        return memory_amount;
+    public String getMemoryAmount() {
+        return memoryAmount;
     }
 
-    public void setMemory_amount(String memory_amount) {
-        this.memory_amount = memory_amount;
+    public void setMemoryAmount(String memoryAmount) {
+        this.memoryAmount = memoryAmount;
     }
 
     public String getProcessor() {
@@ -78,12 +93,12 @@ public class Console {
         this.processor = processor;
     }
 
-    public double getDecimal() {
-        return decimal;
+    public double getPrice() {
+        return price;
     }
 
-    public void setDecimal(double decimal) {
-        this.decimal = decimal;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getQuantity() {
@@ -99,23 +114,23 @@ public class Console {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Console console = (Console) o;
-        return console_id == console.console_id && Double.compare(console.decimal, decimal) == 0 && quantity == console.quantity && Objects.equals(model, console.model) && Objects.equals(manufacturer, console.manufacturer) && Objects.equals(memory_amount, console.memory_amount) && Objects.equals(processor, console.processor);
+        return Double.compare(console.price, price) == 0 && quantity == console.quantity && Objects.equals(id, console.id) && Objects.equals(model, console.model) && Objects.equals(manufacturer, console.manufacturer) && Objects.equals(memoryAmount, console.memoryAmount) && Objects.equals(processor, console.processor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(console_id, model, manufacturer, memory_amount, processor, decimal, quantity);
+        return Objects.hash(id, model, manufacturer, memoryAmount, processor, price, quantity);
     }
 
     @Override
     public String toString() {
         return "Console{" +
-                "console_id=" + console_id +
+                "id=" + id +
                 ", model='" + model + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
-                ", memory_amount='" + memory_amount + '\'' +
+                ", memoryAmount='" + memoryAmount + '\'' +
                 ", processor='" + processor + '\'' +
-                ", decimal=" + decimal +
+                ", price=" + price +
                 ", quantity=" + quantity +
                 '}';
     }

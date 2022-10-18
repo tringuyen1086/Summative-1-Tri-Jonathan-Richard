@@ -14,11 +14,16 @@ import java.util.Objects;
 
 public class TShirt {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "t_shirt_id")
+    @NotNull
     private Integer id;
+
+    @NotNull
     @Size(max = 20)
     private String size;
+
+    @NotNull
     @Size(max = 20)
     private String color;
     @Size(max = 255)
@@ -27,7 +32,7 @@ public class TShirt {
     @Digits(integer = 5,fraction = 2)
     private double price;
     @NotNull(message = "please input a quantity")
-    private Integer quantity;
+    private int quantity;
 
     public Integer getId() {
         return id;
@@ -69,11 +74,11 @@ public class TShirt {
         this.price = price;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     @Override

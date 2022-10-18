@@ -43,14 +43,17 @@ public class GameController {
         return serviceLayer.findGameById(id);
 
     }
+
     @GetMapping("/studio/{studio}")
     public List<Game> getGameByStudio(@PathVariable String studio) {
         return serviceLayer.findGameByStudio(studio);
     }
+
     @GetMapping("/esrbRating/{esrbRating}")
     public List<Game> getGameByEsrbRating(@PathVariable String esrbRating) {
         return serviceLayer.findGameByEsrbRating(esrbRating);
     }
+
     @GetMapping("/title/{title}")
     public List<Game> getGameByTitle(@PathVariable String title) {
         return serviceLayer.findGameByTitle(title);
@@ -61,6 +64,7 @@ public class GameController {
     public void updateGame(@RequestBody Game game) {
         serviceLayer.updateGame(game);
     }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable int id) {

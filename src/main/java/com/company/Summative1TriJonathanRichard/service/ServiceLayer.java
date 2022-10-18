@@ -38,19 +38,35 @@ public class ServiceLayer {
         this.invoiceRepository = invoiceRepository;
     }
 
-// Game
+    // Game
     @Transactional
-    public Game saveGame (Game model){
-        return null;
+    public Game saveGame(Game model) {
+        Game game = new Game();
+        game.setTitle(model.getTitle());
+        game.setEsrbRating(model.getEsrbRating());
+        game.setDescription(model.getDescription());
+        game.setPrice(model.getPrice());
+        game.setStudio(model.getStudio());
+        game.setQuantity(model.getQuantity());
+
+        game = gameRepository.save(game);
+        model.setId(game.getId());
+        return model;
     }
 
-    public List<Game> findAllGames(){
-        return null;
+    public List<Game> findAllGames() {
+
+        List<Game> gameList = gameRepository.findAll();
+        return gameList;
     }
 
-    public Game findGameById (Integer id){
-        return null;
-
+    public Game findGameById(int id) {
+        Optional<Game> game = gameRepository.findById(id);
+        if (game.isPresent()) {
+            return game.get();
+        } else {
+            throw new IllegalArgumentException("There is no match for this Game Id");
+        }
     }
 
     public List<Game> findGameByStudio(String studio){
@@ -92,14 +108,14 @@ public class ServiceLayer {
 
 
 // TShirt
-public void deleteTShirtById(int id) {
-    Optional<TShirt> deleteThis = tshirtRepository.findById(id);
-    if(deleteThis.isPresent()) {
-        tshirtRepository.deleteById(id);
-    }else {
-        throw new IllegalArgumentException("No matches for this Id");
+    public void deleteTShirtById(int id) {
+        Optional<TShirt> deleteThis = tshirtRepository.findById(id);
+        if(deleteThis.isPresent()) {
+            tshirtRepository.deleteById(id);
+        }else {
+            throw new IllegalArgumentException("No matches for this Id");
+        }
     }
-}
 
 // Invoice
 
