@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConsoleController {
 
     @Autowired
-    ServiceLayer service;
+    ServiceLayer serviceLayer;
 }

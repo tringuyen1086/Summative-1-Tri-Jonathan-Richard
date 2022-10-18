@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "t_shirt")
-public class TShirt {
+public class Tshirt {
 
 
 }

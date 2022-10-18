@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/tshirt")
 
-public class TShirtController {
+public class TshirtController {
 
     @Autowired
-    ServiceLayer service;
+    ServiceLayer serviceLayer;
 
 }
