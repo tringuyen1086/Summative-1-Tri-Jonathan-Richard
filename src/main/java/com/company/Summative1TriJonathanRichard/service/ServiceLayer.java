@@ -1,5 +1,6 @@
 package com.company.Summative1TriJonathanRichard.service;
 
+import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
 import com.company.Summative1TriJonathanRichard.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class ServiceLayer {
 
     ConsoleRepository consoleRepository;
 
-    TshirtRepository tshirtRepository;
+    TShirtRepository tshirtRepository;
 
     ProcessingFeeRepository processingFeeRepository;
 
@@ -26,7 +27,7 @@ public class ServiceLayer {
 
     @Autowired
     public ServiceLayer(GameRepository gameRepository, ConsoleRepository consoleRepository,
-                        TshirtRepository tshirtRepository, ProcessingFeeRepository processingFeeRepository, SalesTaxRateRepository salesTaxRateRepository, InvoiceRepository invoiceRepository) {
+                        TShirtRepository tshirtRepository, ProcessingFeeRepository processingFeeRepository, SalesTaxRateRepository salesTaxRateRepository, InvoiceRepository invoiceRepository) {
         this.gameRepository = gameRepository;
         this.consoleRepository = consoleRepository;
         this.tshirtRepository = tshirtRepository;
@@ -81,8 +82,7 @@ public class ServiceLayer {
     }
 
 
-
-
-
-
+    public void saveConsole(Console console) {
+        consoleRepository.saveConsole(console);
+    }
 }
