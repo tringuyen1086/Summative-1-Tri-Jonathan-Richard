@@ -11,6 +11,7 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "t_shirt")
+
 public class TShirt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,3 +101,4 @@ public class TShirt {
         return Objects.hash(id, size, color, description, price, quantity);
     }
 }
+

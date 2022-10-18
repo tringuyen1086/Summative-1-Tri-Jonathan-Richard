@@ -18,7 +18,8 @@ import java.util.List;
 public class ConsoleController {
 
     @Autowired
-    GameStoreServiceLayer service;
+    ServiceLayer serviceLayer;
+
 
     private static int idCounter = 1;
 
