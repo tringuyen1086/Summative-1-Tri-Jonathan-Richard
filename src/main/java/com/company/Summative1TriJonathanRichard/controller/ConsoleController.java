@@ -2,7 +2,8 @@ package com.company.Summative1TriJonathanRichard.controller;
 
 import com.company.Summative1TriJonathanRichard.exceptions.NotFoundException;
 import com.company.Summative1TriJonathanRichard.model.Console;
-import com.company.Summative1TriJonathanRichard.service.GameStoreServiceLayer;
+import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,21 +29,21 @@ public class ConsoleController {
             new Console(idCounter++,"Sega Dreamcast", "Sega", "1mB", "Peanut", 1.00, 1 )
     ));
 
-    @PostMapping(value="/post")
-    @ResponseStatus(value= HttpStatus.CREATED)
-    public Console createConsole(@RequestBody @Valid Console console) {
-        console.setConsole_id(idCounter++);
-        consoleList.add(console);
-        return console;
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel consoleViewModel) {
+        //console.setConsole_id(idCounter++);
+        //consoleList.add(console);
+        return serviceLayer.saveConsole(consoleViewModel);
     }
 
-    @GetMapping(value="/get")
-    @ResponseStatus(value= HttpStatus.OK)
-    public List<Console> getAllConsoles(){
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ConsoleViewModel> getAllConsoles(){
         return consoleList;
     }
 
-    @GetMapping(value="get/{consoleId}")
+    @GetMapping(value="get/{consoleId}") // need to revise the path
     @ResponseStatus(value = HttpStatus.OK)
     public Console getConsoleById(@PathVariable int consoleId){
         Console foundConsole = null;
@@ -59,7 +60,7 @@ public class ConsoleController {
         }
         return foundConsole;
     }
-    @RequestMapping(value = "/put/{consoleId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/put/{consoleId}", method = RequestMethod.PUT) // need to revise the path
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateConsoleById(@PathVariable int consoleId, @RequestBody @Valid Console console) {
 
@@ -84,7 +85,7 @@ public class ConsoleController {
             consoleList.set(index, console);
         }
     }
-    @RequestMapping(value = "/delete/{consoleId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{consoleId}", method = RequestMethod.DELETE) // need to revise the path
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteConsoleById(@PathVariable int consoleId) {
         int index = -1;
@@ -101,5 +102,6 @@ public class ConsoleController {
         }
         else throw new NotFoundException("Console not found.");
     }
+    ServiceLayer service;
 }
 
