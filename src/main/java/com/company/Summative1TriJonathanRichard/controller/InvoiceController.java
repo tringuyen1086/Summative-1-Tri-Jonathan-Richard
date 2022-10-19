@@ -1,6 +1,7 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
 import com.company.Summative1TriJonathanRichard.model.Game;
+import com.company.Summative1TriJonathanRichard.model.Invoice;
 import com.company.Summative1TriJonathanRichard.repository.InvoiceRepository;
 import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,28 @@ public class InvoiceController {
     @Autowired
     ServiceLayer serviceLayer;
 
+    @PostMapping("")
+
+    @ResponseStatus(HttpStatus.CREATED)
+
+    public Invoice addInvoice(@RequestBody @Valid  Invoice invoice) {
+
+        return serviceLayer.saveInvoice(invoice);
+
+    }
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Invoice> getAllInvoices() {
+        return serviceLayer.findAllInvoices();
+
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Invoice getInvoiceById(@PathVariable Integer id){
+        return serviceLayer.findInvoiceById(id);
+
+    }
 
 }

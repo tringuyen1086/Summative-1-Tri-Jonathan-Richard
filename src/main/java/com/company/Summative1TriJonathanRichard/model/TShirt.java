@@ -15,8 +15,6 @@ public class TShirt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "t_shirt_id")
-    //@NotNull BREAKS MY POST ROUTE
-    //@NotNull(message = "please enter an ID")
     private Integer id;
 
     @NotNull(message = "please enter a size")

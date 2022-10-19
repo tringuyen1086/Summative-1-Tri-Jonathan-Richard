@@ -1,5 +1,6 @@
 package com.company.Summative1TriJonathanRichard.service;
 
+import com.company.Summative1TriJonathanRichard.exception.NotFoundException;
 import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
 import com.company.Summative1TriJonathanRichard.model.Invoice;
@@ -62,9 +63,23 @@ public class ServiceLayer {
         }
     }
 
-    public List<Game> findGameByStudio(String studio){
+    public Game findGameByStudio(String studio){
         return null;
     }
+
+//    public Optional<List<Game>> findGameByStudio(String studio){
+//        List<Game> studioList = gameRepository.findAll();
+//        if (studioList.contains(studio)) {
+//            for (Game game : studioList) {
+//                studioList.getStudio();
+//
+//            }
+//
+//        } else {
+//            throw new RuntimeException();
+//        }
+//
+//    }
 
     public List<Game> findGameByEsrbRating(String esrbRating){
         return null;
@@ -92,13 +107,49 @@ public class ServiceLayer {
     }
 
 // Console
-    public void deleteConsoleById(int id){
-        Optional<Console> desiredDelete = consoleRepository.findById(id);
-        if(desiredDelete.isPresent()){
-            consoleRepository.deleteById(id);
-        }else{
-            throw new IllegalArgumentException("Cannot find any matches for this ID");
+@Transactional
+public Console saveConsole(Console console) {
+    console = consoleRepository.save(console);
+    return console;
+}
+
+    public List<Console> findAllConsoles() {
+
+        List<Console> consoleList = consoleRepository.findAll();
+        return consoleList;
+    }
+    public Console findConsoleById(int id) {
+        Optional<Console> console = consoleRepository.findById(id);
+        if (console.isPresent()) {
+            return console.get();
+        } else {
+            throw new IllegalArgumentException("There is no match for this Game Id");
         }
+    }
+    public Optional<List<Console>> findConsoleByManufacturer(String manufacturer){
+        Optional<List<Console>> foundConsole = consoleRepository.findByManufacturer(manufacturer);
+        if(foundConsole.get().isEmpty()){
+            throw new RuntimeException();
+        } else {
+            System.out.println(foundConsole);
+            return consoleRepository.findByManufacturer(manufacturer);
+        }
+
+    }
+
+    @Transactional
+    public Console updateConsole(Console console){
+        Optional<Console> updateConsole = consoleRepository.findById(console.getId());
+        if(updateConsole.isPresent()) {
+            return consoleRepository.save(console);
+
+        } else {
+            throw new IllegalArgumentException("There is no match for this game.");
+        }
+    }
+    @Transactional
+    public void deleteConsole(int id){
+        consoleRepository.deleteById(id);
     }
 
 // TShirt
@@ -126,6 +177,30 @@ public class ServiceLayer {
         }
     }
 
+// Invoice
+    @Transactional
+    public Invoice saveInvoice(Invoice invoice){
+        invoice = invoiceRepository.save(invoice);
+        if (invoice.getQuantity() == 0){
+            throw new IllegalArgumentException("Your Quantity can");
+        }
+        return invoice;
+    }
+
+    public List<Invoice> findAllInvoices() {
+
+        List<Invoice> invoiceList = invoiceRepository.findAll();
+        return invoiceList;
+    }
+
+    public Invoice findInvoiceById(int id) {
+        Optional<Invoice> invoice = invoiceRepository.findById(id);
+        if (invoice.isPresent()) {
+            return invoice.get();
+        } else {
+            throw new IllegalArgumentException("There is no match for this Game Id");
+        }
+    }
     public TShirt updateTShirtById( TShirt model, int id){
         Optional<TShirt> updateThis = tshirtRepository.findById(id);
         if(updateThis.isPresent()) {

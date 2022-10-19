@@ -15,7 +15,6 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "invoice_id")
-    @NotNull(message = "Please enter an ID")
     private Integer id;
 
     @NotNull(message = "Please enter a name")

@@ -24,7 +24,7 @@ public class GameController {
 
     @ResponseStatus(HttpStatus.CREATED)
 
-    public Game addGame(@RequestBody @Valid  Game game) {
+    public Game createNewGame(@RequestBody @Valid  Game game) {
 
         return serviceLayer.saveGame(game);
 
@@ -46,7 +46,7 @@ public class GameController {
 
     @GetMapping("/studio/{studio}")
     public List<Game> getGameByStudio(@PathVariable String studio) {
-        return serviceLayer.findGameByStudio(studio);
+        return (List<Game>) serviceLayer.findGameByStudio(studio);
     }
 
     @GetMapping("/esrbRating/{esrbRating}")
