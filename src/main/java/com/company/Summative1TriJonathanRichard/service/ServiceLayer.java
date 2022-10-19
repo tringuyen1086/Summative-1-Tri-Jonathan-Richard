@@ -111,4 +111,17 @@ public class ServiceLayer {
         }
     }
 
+    public TShirt updateTShirtById( TShirt model, int id){
+        Optional<TShirt> updateThis = tshirtRepository.findById(id);
+        if(updateThis.isPresent()) {
+            model.setId(id);
+            tshirtRepository.save(model);
+        }else{
+            throw new IllegalArgumentException("No matches for this Id.");
+        }
+        return null;
+    }
+
+// Invoice
+
 }
