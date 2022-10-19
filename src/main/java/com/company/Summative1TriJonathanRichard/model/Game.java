@@ -14,30 +14,30 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "game_id")
-    @NotNull
+    @NotNull(message = "Please enter an ID")
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "Please enter a title")
     @Size(max = 50)
     private String title;
 
     @Column(name = "esrb_rating")
-    @NotNull
+    @NotNull(message = "Please enter an ESRB rating")
     @Size(max = 50)
     private String esrbRating;
 
-    @NotNull
+    @NotNull(message = "Please enter a description")
     @Size(max = 255)
     private String description;
 
-    @NotNull
+    @NotNull(message = "Please enter a price")
     private double price;
 
-    @NotNull
+    @NotNull(message = "Please enter a studio")
     @Size(max = 50)
     private String studio;
 
-    @NotNull
+    @NotNull(message = "Please enter a quantity")
     private int quantity;
 
     public Game(){

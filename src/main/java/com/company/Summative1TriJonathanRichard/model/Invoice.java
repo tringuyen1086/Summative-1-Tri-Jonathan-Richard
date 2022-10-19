@@ -15,55 +15,55 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "invoice_id")
-    @NotNull
+    @NotNull(message = "Please enter an ID")
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "Please enter a name")
     @Size(max = 80)
     private String name;
 
-    @NotNull
+    @NotNull(message = "Please enter a street")
     @Size(max = 30)
     private String street;
 
-    @NotNull
+    @NotNull(message = "Please enter a city")
     @Size(max = 30)
     private String city;
 
-    @NotNull
+    @NotNull(message = "Please enter a state")
     @Size(max = 2)
     private String state;
 
 
-    @NotNull
+    @NotNull(message = "Please enter a zipcode")
     @Size(max = 5)
     private String zipcode;
 
-    @NotNull
+    @NotNull(message = "Please enter an item-type")
     @Column(name = "item_type")
     @Size(max = 20)
     private String itemType;
 
-    @NotNull
+    @NotNull(message = "Please enter an item-ID")
     @Column(name = "item_id")
     private int itemId;
 
-    @NotNull
+    @NotNull(message = "Please enter an unit price")
     @Column(name = "unit_price")
     private double unitPrice;
 
-    @NotNull
+    @NotNull(message = "Please enter a quantity")
     private int quantity;
 
-    @NotNull
+    @NotNull(message = "Please enter a subtotal")
     private double subtotal;
 
-    @NotNull
+    @NotNull(message = "Please enter a tax")
     private double tax;
 
     @Column(name = "processing_fee")
     private double processingFee;
-    @NotNull
+    @NotNull(message = "Please enter a total")
     private double total;
 
     public Invoice(){

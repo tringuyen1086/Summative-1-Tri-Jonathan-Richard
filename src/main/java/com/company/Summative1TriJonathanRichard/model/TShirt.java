@@ -16,14 +16,14 @@ public class TShirt {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "t_shirt_id")
-    @NotNull
+    @NotNull(message = "please enter an ID")
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "please enter a size")
     @Size(max = 20)
     private String size;
 
-    @NotNull
+    @NotNull(message = "please enter a color")
     @Size(max = 20)
     private String color;
     @Size(max = 255)

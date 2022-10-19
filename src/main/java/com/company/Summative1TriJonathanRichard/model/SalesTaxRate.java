@@ -15,7 +15,7 @@ import java.util.Objects;
 public class SalesTaxRate {
 
     @Id
-    @NotNull
+    @NotNull(message = "Please enter an ID")
     @Size(min = 2, max = 2)
     private String state;
 
@@ -28,7 +28,7 @@ public class SalesTaxRate {
         this.rate = rate;
     }
 
-    @NotNull
+    @NotNull(message = "Please enter a rate")
     private double rate;
 
     public String getState() {
