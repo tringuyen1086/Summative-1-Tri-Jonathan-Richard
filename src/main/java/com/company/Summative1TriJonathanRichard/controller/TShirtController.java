@@ -29,7 +29,7 @@ public class TShirtController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<TShirt> getTShirtById(@PathVariable int id){
-        return Optional.of(tshirtRepository.getReferenceById(id));
+        return tshirtRepository.findById(id);
     }
 
     @GetMapping("/color/{color}")
@@ -45,23 +45,14 @@ public class TShirtController {
     }
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewTShirt(@RequestBody TShirt tShirt){
-        tshirtRepository.save(tShirt);
+    public TShirt createNewTShirt(@RequestBody TShirt tShirt){
+        return tshirtRepository.save(tShirt);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTShirtById(@RequestBody TShirt tShirt ,@PathVariable int id){
-        // This will go into service layer later...
-        Optional<TShirt> updateThis = tshirtRepository.findById(id);
-        if(updateThis.isPresent()) {
-            //System.out.println(updateThis);
-            tShirt.setId(id);
-            tshirtRepository.save(tShirt);
-        }else{
-            //error can be change later
-            throw new IllegalArgumentException("No matches for this Id.");
-        }
+    public TShirt updateTShirtById(@RequestBody TShirt tShirt ,@PathVariable int id){
+        return serviceLayer.updateTShirtById(tShirt,id);
     }
 
     @DeleteMapping("/{id}")
