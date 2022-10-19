@@ -12,41 +12,38 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/tshirt")
-
 public class TShirtController {
 
     @Autowired
     ServiceLayer serviceLayer;
 
-    @Autowired
-    TShirtRepository tshirtRepository;
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getAllTShirts(){
-        return tshirtRepository.findAll();
+        return serviceLayer.tShirtGetAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<TShirt> getTShirtById(@PathVariable int id){
-        return tshirtRepository.findById(id);
+        return serviceLayer.tShirtById(id);
     }
 
     @GetMapping("/color/{color}")
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getTShirtByColor(@PathVariable String color){
-        return tshirtRepository.findByColor(color);
+        return serviceLayer.tShirtByColor(color);
     }
 
     @GetMapping("/size/{size}")
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getTShirtBySize(@PathVariable String size){
-        return tshirtRepository.findBySize(size);
+        return serviceLayer.tShirtBySize(size);
     }
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public TShirt createNewTShirt(@RequestBody TShirt tShirt){
-        return tshirtRepository.save(tShirt);
+        return serviceLayer.tShirtCreate(tShirt);
     }
 
     @PutMapping("/{id}")
@@ -58,7 +55,6 @@ public class TShirtController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTShirtById(@PathVariable int id){
-        // This will go into service layer later..
         serviceLayer.deleteTShirtById(id);
     }
 }

@@ -11,10 +11,9 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "t_shirt")
-
 public class TShirt {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "t_shirt_id")
     private Integer id;
 
@@ -108,7 +107,7 @@ public class TShirt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TShirt tShirt = (TShirt) o;
-        return Double.compare(tShirt.price, price) == 0 && Objects.equals(id, tShirt.id) && Objects.equals(size, tShirt.size) && Objects.equals(color, tShirt.color) && Objects.equals(description, tShirt.description) && Objects.equals(quantity, tShirt.quantity);
+        return Double.compare(tShirt.price, price) == 0 && quantity == tShirt.quantity && Objects.equals(id, tShirt.id) && Objects.equals(size, tShirt.size) && Objects.equals(color, tShirt.color) && Objects.equals(description, tShirt.description);
     }
 
     @Override

@@ -32,8 +32,7 @@ public class TShirtControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private ObjectMapper mapper = new ObjectMapper();
-    @MockBean
-    private TShirtRepository repo;
+
     @MockBean
     private ServiceLayer service;
     private List<TShirt> tshirtList = new ArrayList<>();
@@ -63,7 +62,7 @@ public class TShirtControllerTest {
     @Test
     public void shouldReturnAllTShirtsInCollection() throws Exception{
         String listJson = mapper.writeValueAsString(tshirtList);
-        doReturn(tshirtList).when(repo).findAll();
+        doReturn(tshirtList).when(service).tShirtGetAll();
         mockMvc.perform(get("/tshirt"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -72,7 +71,7 @@ public class TShirtControllerTest {
 
     @Test
     public void shouldReturnTShirtById() throws Exception{
-        doReturn(Optional.of(outputTShirt)).when(repo).findById(1);
+        doReturn(Optional.of(outputTShirt)).when(service).tShirtById(1);
         mockMvc.perform(get("/tshirt/{id}",1))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -83,7 +82,7 @@ public class TShirtControllerTest {
     public void shouldReturnTShirtByColor() throws Exception{
         List<TShirt> blueShirts = new ArrayList<>(Arrays.asList(tshirtList.get(0)));
         outputJson = mapper.writeValueAsString(blueShirts);
-        doReturn(blueShirts).when(repo).findByColor("blue");
+        doReturn(blueShirts).when(service).tShirtByColor("blue");
         mockMvc.perform(get("/tshirt/color/blue"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -94,7 +93,7 @@ public class TShirtControllerTest {
     public void shouldReturnTShirtBySize() throws Exception{
         List<TShirt> mediumShirts = new ArrayList<>(Arrays.asList(tshirtList.get(1)));
         outputJson = mapper.writeValueAsString(mediumShirts);
-        doReturn(mediumShirts).when(repo).findBySize("medium");
+        doReturn(mediumShirts).when(service).tShirtBySize("medium");
         mockMvc.perform(get("/tshirt/size/medium"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -103,7 +102,7 @@ public class TShirtControllerTest {
 
     @Test
     public void shouldCreateANewTShirt() throws Exception {
-        doReturn(outputTShirt).when(repo).save(inputTShirt);
+        doReturn(outputTShirt).when(service).tShirtCreate(inputTShirt);
         mockMvc.perform(post("/tshirt")
                         .content(inputJson)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -113,7 +112,7 @@ public class TShirtControllerTest {
 
     @Test
     public void shouldUpdateTShirt() throws Exception {
-        repo.save(inputTShirt);
+        service.tShirtCreate(inputTShirt);
         mockMvc.perform(put("/tshirt/1")
                         .content(inputJson)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -123,7 +122,7 @@ public class TShirtControllerTest {
 
     @Test
     public void shouldDeleteTShirt() throws Exception{
-        repo.save(inputTShirt);
+        service.tShirtCreate(inputTShirt);
         mockMvc.perform(delete("/tshirt/1"))
                 .andExpect(status().isNoContent());
     }
