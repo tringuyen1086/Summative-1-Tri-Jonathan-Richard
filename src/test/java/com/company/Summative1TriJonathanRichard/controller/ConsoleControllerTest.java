@@ -1,15 +1,21 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
 import com.company.Summative1TriJonathanRichard.model.Console;
+import com.company.Summative1TriJonathanRichard.repository.ConsoleRepository;
+import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.xml.ws.Service;
 import java.awt.*;
 
 import static org.junit.Assert.*;
@@ -25,39 +31,21 @@ public class ConsoleControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private ConsoleRepository consoleRepository;
+
+    @MockBean
+    private ServiceLayer serviceLayer;
+
     private ObjectMapper mapper = new ObjectMapper();
 
+    @Before
+    public void setUp(){}
+
     @Test
-    public void shouldReturnAllConsoles() throws Exception {
-        Console inputConsole = new Console();
-        inputConsole.setModel("Nintendo Switch");
-        inputConsole.setManufacturer("Nintendo");
-        inputConsole.setMemory_amount("350MB");
-        inputConsole.setProcessor("I7");
-        inputConsole.setDecimal(5.99);
-        inputConsole.setQuantity(4);
-
-        String inputConsoleJson = mapper.writeValueAsString(inputConsole);
-
-        Console outputConsole = new Console();
-        outputConsole.setConsole_id(1);
-        outputConsole.setModel("Nintendo Switch");
-        outputConsole.setManufacturer("Nintendo");
-        outputConsole.setMemory_amount("350MB");
-        outputConsole.setProcessor("I7");
-        outputConsole.setDecimal(5.99);
-        outputConsole.setQuantity(4);
-
-        String outputConsoleJson = mapper.writeValueAsString(outputConsole);
-
-        mockMvc.perform(get("console"))
+    public void shouldReturnAllConsolesInDatabase() throws Exception{
+        mockMvc.perform(get("/console"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0]").isNotEmpty());;
-
-
-
+                .andExpect(status().isOk());
     }
-
-
 }
