@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "game")
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id")
 //    @NotNull(message = "Please enter an ID")
     private Integer id;

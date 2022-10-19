@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Invoice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")
     private Integer id;
 

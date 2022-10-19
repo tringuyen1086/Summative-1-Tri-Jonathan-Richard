@@ -21,7 +21,7 @@ public class InvoiceController {
     @Autowired
     ServiceLayer serviceLayer;
 
-    @PostMapping("")
+    @PostMapping()
 
     @ResponseStatus(HttpStatus.CREATED)
 
@@ -31,7 +31,7 @@ public class InvoiceController {
 
     }
 
-    @GetMapping("")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<Invoice> getAllInvoices() {
         return serviceLayer.findAllInvoices();

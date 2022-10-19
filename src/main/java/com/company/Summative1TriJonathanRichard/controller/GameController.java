@@ -20,7 +20,7 @@ public class GameController {
     GameRepository gameRepository;
     @Autowired
     ServiceLayer serviceLayer;
-    @PostMapping("")
+    @PostMapping()
 
     @ResponseStatus(HttpStatus.CREATED)
 
@@ -30,7 +30,7 @@ public class GameController {
 
     }
 
-    @GetMapping("")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getAllGames() {
         return serviceLayer.findAllGames();
@@ -59,7 +59,7 @@ public class GameController {
         return serviceLayer.findGameByTitle(title);
     }
 
-    @PutMapping("")
+    @PutMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame(@RequestBody Game game) {
         serviceLayer.updateGame(game);
