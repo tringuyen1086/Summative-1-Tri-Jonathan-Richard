@@ -14,7 +14,6 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id")
-//    @NotNull(message = "Please enter an ID")
     private Integer id;
 
     @NotNull(message = "Please enter a title")

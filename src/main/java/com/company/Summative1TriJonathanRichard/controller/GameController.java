@@ -59,10 +59,9 @@ public class GameController {
         return serviceLayer.findGameByTitle(title);
     }
 
-    @PutMapping()
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateGame(@RequestBody Game game) {
-        serviceLayer.updateGame(game);
+    public Game updateGameById(@RequestBody Game game, @PathVariable int id) { return serviceLayer.updateGameById(game, id);
     }
 
     @DeleteMapping("/{id}")

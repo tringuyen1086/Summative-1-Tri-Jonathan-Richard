@@ -75,16 +75,16 @@ public class ServiceLayer {
     }
 
     @Transactional
-    public Game updateGame(Game game){
-        Optional<Game> updateGame = gameRepository.findById(game.getId());
+    public Game updateGameById(Game game, int id){
+        Optional<Game> updateGame = gameRepository.findById(id);
         if(updateGame.isPresent()) {
-           return gameRepository.save(game);
-
+            game.setId(id);
+           gameRepository.save(game);
         } else {
-            throw new IllegalArgumentException("There is no match for this game.");
+            throw new IllegalArgumentException("There is no match for this Game Id.");
         }
+        return null;
     }
-
 
     @Transactional
     public void deleteGame(int id){
@@ -92,10 +92,10 @@ public class ServiceLayer {
     }
 
 // Console
-@Transactional
-public Console saveConsole(Console console) {
-    console = consoleRepository.save(console);
-    return console;
+    @Transactional
+    public Console saveConsole(Console console) {
+        console = consoleRepository.save(console);
+        return console;
 }
 
     public List<Console> findAllConsoles() {
@@ -108,7 +108,7 @@ public Console saveConsole(Console console) {
         if (console.isPresent()) {
             return console.get();
         } else {
-            throw new IllegalArgumentException("There is no match for this Game Id");
+            throw new IllegalArgumentException("There is no match for this Console Id");
         }
     }
     public List<Console> findConsoleByManufacturer(String manufacturer){
@@ -116,15 +116,17 @@ public Console saveConsole(Console console) {
     }
 
     @Transactional
-    public Console updateConsole(Console console){
-        Optional<Console> updateConsole = consoleRepository.findById(console.getId());
+    public Console updateConsoleById(Console console, int id){
+        Optional<Console> updateConsole = consoleRepository.findById(id);
         if(updateConsole.isPresent()) {
-            return consoleRepository.save(console);
-
+            console.setId(id);
+            consoleRepository.save(console);
         } else {
-            throw new IllegalArgumentException("There is no match for this game.");
+            throw new IllegalArgumentException("There is no match for this Console Id.");
         }
+        return null;
     }
+
     @Transactional
     public void deleteConsole(int id){
         consoleRepository.deleteById(id);
@@ -147,11 +149,11 @@ public Console saveConsole(Console console) {
         return tshirtRepository.save(tShirt);
     }
 
-    public TShirt updateTShirtById( TShirt model, int id){
-        Optional<TShirt> updateThis = tshirtRepository.findById(id);
-        if(updateThis.isPresent()) {
-            model.setId(id);
-            tshirtRepository.save(model);
+    public TShirt updateTShirtById( TShirt tShirt, int id){
+        Optional<TShirt> updateTShirt = tshirtRepository.findById(id);
+        if(updateTShirt.isPresent()) {
+            tShirt.setId(id);
+            tshirtRepository.save(tShirt);
         }else{
             throw new IllegalArgumentException("No matches for this Id.");
         }

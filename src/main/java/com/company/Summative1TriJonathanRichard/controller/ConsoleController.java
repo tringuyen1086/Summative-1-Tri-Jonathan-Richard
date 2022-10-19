@@ -48,10 +48,10 @@ public class ConsoleController {
     }
 
 
-    @PutMapping()
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateConsole(@RequestBody Console console) {
-        serviceLayer.updateConsole(console);
+    public Console updateConsoleById(@RequestBody Console console, @PathVariable int id) {
+        return serviceLayer.updateConsoleById(console, id);
     }
 
     @DeleteMapping("/{id}")
