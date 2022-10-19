@@ -16,7 +16,6 @@ public class TShirt {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "t_shirt_id")
-    @NotNull(message = "please enter an ID")
     private Integer id;
 
     @NotNull(message = "please enter a size")

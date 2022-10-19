@@ -46,7 +46,7 @@ public class GameController {
 
     @GetMapping("/studio/{studio}")
     public List<Game> getGameByStudio(@PathVariable String studio) {
-        return serviceLayer.findGameByStudio(studio);
+        return (List<Game>) serviceLayer.findGameByStudio(studio);
     }
 
     @GetMapping("/esrbRating/{esrbRating}")

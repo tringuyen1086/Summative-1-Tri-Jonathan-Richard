@@ -36,7 +36,7 @@ public class ConsoleController {
     public List<Console> getConsoleByManufacturer(@PathVariable String manufacturer){
         return consoleRepository.findByManufacturer(manufacturer);
     }
-    @PostMapping()
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewConsole(@RequestBody Console console){
         consoleRepository.save(console);

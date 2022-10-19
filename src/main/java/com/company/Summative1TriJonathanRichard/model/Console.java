@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Console {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull(message = "You must supply a value for console ID")
+    @Column(name = "console_id")
     private Integer id;
 
     @NotNull(message = "You must supply a value for model")

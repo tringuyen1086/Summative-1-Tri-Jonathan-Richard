@@ -62,9 +62,23 @@ public class ServiceLayer {
         }
     }
 
-    public List<Game> findGameByStudio(String studio){
+    public Game findGameByStudio(String studio){
         return null;
     }
+
+//    public Optional<List<Game>> findGameByStudio(String studio){
+//        List<Game> studioList = gameRepository.findAll();
+//        if (studioList.contains(studio)) {
+//            for (Game game : studioList) {
+//                studioList.getStudio();
+//
+//            }
+//
+//        } else {
+//            throw new RuntimeException();
+//        }
+//
+//    }
 
     public List<Game> findGameByEsrbRating(String esrbRating){
         return null;
@@ -108,6 +122,31 @@ public class ServiceLayer {
             tshirtRepository.deleteById(id);
         }else {
             throw new IllegalArgumentException("No matches for this Id");
+        }
+    }
+
+// Invoice
+    @Transactional
+    public Invoice saveInvoice(Invoice invoice){
+        invoice = invoiceRepository.save(invoice);
+        if (invoice.getQuantity() == 0){
+            throw new IllegalArgumentException("Your Quantity can");
+        }
+        return invoice;
+    }
+
+    public List<Invoice> findAllInvoices() {
+
+        List<Invoice> invoiceList = invoiceRepository.findAll();
+        return invoiceList;
+    }
+
+    public Invoice findInvoiceById(int id) {
+        Optional<Invoice> invoice = invoiceRepository.findById(id);
+        if (invoice.isPresent()) {
+            return invoice.get();
+        } else {
+            throw new IllegalArgumentException("There is no match for this Game Id");
         }
     }
 
