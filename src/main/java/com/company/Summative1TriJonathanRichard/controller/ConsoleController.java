@@ -44,7 +44,7 @@ public class ConsoleController {
     @GetMapping("/manufacturer/{manufacturer}")
     @ResponseStatus(HttpStatus.OK)
     public List<Console> consoleByManufacturer(String manufacturer){
-        return consoleRepository.findConsoleByManufacturer(manufacturer);
+        return serviceLayer.findConsoleByManufacturer(manufacturer);
     }
 
 
