@@ -1,5 +1,6 @@
 package com.company.Summative1TriJonathanRichard.service;
 
+import com.company.Summative1TriJonathanRichard.exception.NotFoundException;
 import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
 import com.company.Summative1TriJonathanRichard.model.Invoice;
@@ -92,13 +93,49 @@ public class ServiceLayer {
     }
 
 // Console
-    public void deleteConsoleById(int id){
-        Optional<Console> desiredDelete = consoleRepository.findById(id);
-        if(desiredDelete.isPresent()){
-            consoleRepository.deleteById(id);
-        }else{
-            throw new IllegalArgumentException("Cannot find any matches for this ID");
+@Transactional
+public Console saveConsole(Console console) {
+    console = consoleRepository.save(console);
+    return console;
+}
+
+    public List<Console> findAllConsoles() {
+
+        List<Console> consoleList = consoleRepository.findAll();
+        return consoleList;
+    }
+    public Console findConsoleById(int id) {
+        Optional<Console> console = consoleRepository.findById(id);
+        if (console.isPresent()) {
+            return console.get();
+        } else {
+            throw new IllegalArgumentException("There is no match for this Game Id");
         }
+    }
+    public Optional<List<Console>> findConsoleByManufacturer(String manufacturer){
+        Optional<List<Console>> foundConsole = consoleRepository.findByManufacturer(manufacturer);
+        if(foundConsole.get().isEmpty()){
+            throw new RuntimeException();
+        } else {
+            System.out.println(foundConsole);
+            return consoleRepository.findByManufacturer(manufacturer);
+        }
+
+    }
+
+    @Transactional
+    public Console updateConsole(Console console){
+        Optional<Console> updateConsole = consoleRepository.findById(console.getId());
+        if(updateConsole.isPresent()) {
+            return consoleRepository.save(console);
+
+        } else {
+            throw new IllegalArgumentException("There is no match for this game.");
+        }
+    }
+    @Transactional
+    public void deleteConsole(int id){
+        consoleRepository.deleteById(id);
     }
 
 // TShirt
