@@ -1,12 +1,15 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
 import com.company.Summative1TriJonathanRichard.model.Console;
+import com.company.Summative1TriJonathanRichard.model.Game;
 import com.company.Summative1TriJonathanRichard.repository.ConsoleRepository;
 import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,46 +22,41 @@ public class ConsoleController {
 
     @Autowired
     ConsoleRepository consoleRepository;
+
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public Console createNewConsole(@RequestBody @Valid Console console){
+        return serviceLayer.saveConsole(console);
+    }
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public List<Console> getAllConsoles(){
-        return consoleRepository.findAll();
+        return serviceLayer.findAllConsoles();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Console> getConsoleById(@PathVariable int id){
-        return Optional.of(consoleRepository.getReferenceById(id));
+    public Console getConsoleById(@PathVariable Integer id){
+        return serviceLayer.findConsoleById(id);
     }
 
     @GetMapping("/manufacturer/{manufacturer}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Console> getConsoleByManufacturer(@PathVariable String manufacturer){
+    public Optional<List<Console>> getConsoleByManufacturer(@PathVariable String manufacturer){
         return consoleRepository.findByManufacturer(manufacturer);
     }
-    @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createNewConsole(@RequestBody Console console){
-        consoleRepository.save(console);
-    }
 
-    @PutMapping("/{id}")
+
+    @PutMapping("")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateConsoleById(@RequestBody Console console ,@PathVariable int id){
-        Optional<Console> foundConsole = consoleRepository.findById(id);
-        if(foundConsole.isPresent()) {
-            console.setId(id);
-            consoleRepository.save(console);
-        }else{
-            //error can be change later
-            throw new IllegalArgumentException("No matches for this Id.");
-        }
+    public void updateConsole(@RequestBody Console console) {
+        serviceLayer.updateConsole(console);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsoleById(@PathVariable int id){
-        serviceLayer.deleteConsoleById(id);
+        serviceLayer.deleteConsole(id);
     }
 }
 
