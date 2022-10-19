@@ -34,6 +34,17 @@ public class TShirt {
     @NotNull(message = "please input a quantity")
     private int quantity;
 
+    public TShirt() {
+    }
+
+    public TShirt(String size, String color, String description, double price, int quantity) {
+        this.size = size;
+        this.color = color;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public Integer getId() {
         return id;
     }
