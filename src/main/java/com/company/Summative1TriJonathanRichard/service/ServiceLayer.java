@@ -63,30 +63,15 @@ public class ServiceLayer {
         }
     }
 
-    public Game findGameByStudio(String studio){
-        return null;
+    public List<Game> findGameByStudio(String studio){
+        return gameRepository.findByStudio(studio);
     }
-
-//    public Optional<List<Game>> findGameByStudio(String studio){
-//        List<Game> studioList = gameRepository.findAll();
-//        if (studioList.contains(studio)) {
-//            for (Game game : studioList) {
-//                studioList.getStudio();
-//
-//            }
-//
-//        } else {
-//            throw new RuntimeException();
-//        }
-//
-//    }
-
     public List<Game> findGameByEsrbRating(String esrbRating){
-        return null;
+        return gameRepository.findByEsrbRating(esrbRating);
     }
 
     public List<Game> findGameByTitle(String title){
-        return null;
+        return gameRepository.findByTitle(title);
     }
 
     @Transactional
