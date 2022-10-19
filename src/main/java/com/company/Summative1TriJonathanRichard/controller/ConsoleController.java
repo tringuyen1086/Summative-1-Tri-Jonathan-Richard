@@ -2,6 +2,7 @@ package com.company.Summative1TriJonathanRichard.controller;
 
 import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
+import com.company.Summative1TriJonathanRichard.model.TShirt;
 import com.company.Summative1TriJonathanRichard.repository.ConsoleRepository;
 import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 
@@ -42,9 +43,8 @@ public class ConsoleController {
 
     @GetMapping("/manufacturer/{manufacturer}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Console> findConsoleByManufacturer(@PathVariable String manufacturer){
-        return null;
-//        return serviceLayer.findConsoleByManufacturer(manufacturer);
+    public List<Console> consoleByManufacturer(String manufacturer){
+        return consoleRepository.findConsoleByManufacturer(manufacturer);
     }
 
 
