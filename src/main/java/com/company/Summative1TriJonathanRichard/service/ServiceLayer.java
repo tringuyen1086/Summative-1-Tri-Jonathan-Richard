@@ -2,6 +2,7 @@ package com.company.Summative1TriJonathanRichard.service;
 
 import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
+import com.company.Summative1TriJonathanRichard.model.Invoice;
 import com.company.Summative1TriJonathanRichard.model.TShirt;
 import com.company.Summative1TriJonathanRichard.repository.*;
 import net.bytebuddy.pool.TypePool;
@@ -41,18 +42,9 @@ public class ServiceLayer {
 
     // Game
     @Transactional
-    public Game saveGame(Game model) {
-        Game game = new Game();
-        game.setTitle(model.getTitle());
-        game.setEsrbRating(model.getEsrbRating());
-        game.setDescription(model.getDescription());
-        game.setPrice(model.getPrice());
-        game.setStudio(model.getStudio());
-        game.setQuantity(model.getQuantity());
-
+    public Game saveGame(Game game) {
         game = gameRepository.save(game);
-        model.setId(game.getId());
-        return model;
+        return game;
     }
 
     public List<Game> findAllGames() {
@@ -83,24 +75,14 @@ public class ServiceLayer {
     }
 
     @Transactional
-    public Game updateGame(Game model){
-        Optional<Game> game = gameRepository.findById(model.getId());
-        if(game.isPresent()) {
-            Game updateGame = new Game();
-            updateGame.setId(model.getId());
-            updateGame.setTitle(model.getTitle());
-            updateGame.setEsrbRating(model.getEsrbRating());
-            updateGame.setDescription(model.getDescription());
-            updateGame.setPrice(model.getPrice());
-            updateGame.setStudio(model.getStudio());
-            updateGame.setQuantity(model.getQuantity());
-
-            updateGame = gameRepository.save(updateGame);
+    public Game updateGame(Game game){
+        Optional<Game> updateGame = gameRepository.findById(game.getId());
+        if(updateGame.isPresent()) {
+           return gameRepository.save(game);
 
         } else {
             throw new IllegalArgumentException("There is no match for this game.");
         }
-        return model;
     }
 
 
@@ -119,8 +101,6 @@ public class ServiceLayer {
         }
     }
 
-
-
 // TShirt
     public void deleteTShirtById(int id) {
         Optional<TShirt> deleteThis = tshirtRepository.findById(id);
@@ -130,7 +110,5 @@ public class ServiceLayer {
             throw new IllegalArgumentException("No matches for this Id");
         }
     }
-
-// Invoice
 
 }
