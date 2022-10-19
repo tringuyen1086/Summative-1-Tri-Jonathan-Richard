@@ -1,17 +1,14 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
-import com.company.Summative1TriJonathanRichard.exceptions.NotFoundException;
 import com.company.Summative1TriJonathanRichard.model.Console;
+import com.company.Summative1TriJonathanRichard.repository.ConsoleRepository;
 import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/console")
@@ -20,87 +17,48 @@ public class ConsoleController {
     @Autowired
     ServiceLayer serviceLayer;
 
-
-    private static int idCounter = 1;
-
-    private static List<Console> consoleList = new ArrayList<>(Arrays.asList(
-            new Console(idCounter++,"Nintendo Switch", "Nintendo", "350MB", "I7", 5.99, 4 ),
-            new Console(idCounter++,"XBox One", "Microsoft", "1TB", "I5", 9.99, 2 ),
-            new Console(idCounter++,"Playstation", "Sony", "250MB", "I7", 5.99, 5),
-            new Console(idCounter++,"Sega Dreamcast", "Sega", "1mB", "Peanut", 1.00, 1 )
-    ));
-
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Console createConsole(@RequestBody @Valid Console console) {
-         serviceLayer.saveConsole(console);
-         return console;
-    }
-
+    @Autowired
+    ConsoleRepository consoleRepository;
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public List<Console> getAllConsoles(){
-        return consoleList;
+        return consoleRepository.findAll();
     }
 
-    @GetMapping("/{consoleId}") // need to revise the path
-    @ResponseStatus(value = HttpStatus.OK)
-    public Console getConsoleById(@PathVariable int consoleId){
-        Console foundConsole = null;
-
-        for(Console console: consoleList){
-            if (console.getConsole_id() == consoleId){
-                foundConsole = console;
-                break;
-            }
-
-        }
-        if (foundConsole == null) {
-            throw new NotFoundException("Console not found in database");
-        }
-        return foundConsole;
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Console> getConsoleById(@PathVariable int id){
+        return Optional.of(consoleRepository.getReferenceById(id));
     }
-    @PutMapping("/{consoleId}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateConsoleById(@PathVariable int consoleId, @RequestBody @Valid Console console) {
 
-        if( console.getConsole_id() == 0 ) {
-            console.setConsole_id(consoleId);
-        }
+    @GetMapping("/manufacturer/{manufacturer}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Console> getConsoleByManufacturer(@PathVariable String manufacturer){
+        return consoleRepository.findByManufacturer(manufacturer);
+    }
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createNewConsole(@RequestBody Console console){
+        consoleRepository.save(console);
+    }
 
-        if( console.getConsole_id() != consoleId) {
-            throw new IllegalArgumentException("Id in parameter must match the ID in the request body");
-        }
-
-        int index = -1;
-
-        for(int i = 0; i < consoleList.size(); i++) {
-            if(consoleList.get(i).getConsole_id() == consoleId) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index >= 0) {
-            consoleList.set(index, console);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateConsoleById(@RequestBody Console console ,@PathVariable int id){
+        Optional<Console> foundConsole = consoleRepository.findById(id);
+        if(foundConsole.isPresent()) {
+            console.setId(id);
+            consoleRepository.save(console);
+        }else{
+            //error can be change later
+            throw new IllegalArgumentException("No matches for this Id.");
         }
     }
-    @RequestMapping("/{consoleId}") // need to revise the path
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteConsoleById(@PathVariable int consoleId) {
-        int index = -1;
 
-        for(int i = 0; i < consoleList.size(); i++) {
-            if(consoleList.get(i).getConsole_id() == consoleId) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index >= 0) {
-            consoleList.remove(index);
-        }
-        else throw new NotFoundException("Console not found.");
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteConsoleById(@PathVariable int id){
+        serviceLayer.deleteConsoleById(id);
     }
 }
 
