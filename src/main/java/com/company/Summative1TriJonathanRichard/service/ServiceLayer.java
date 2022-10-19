@@ -82,18 +82,26 @@ public class ServiceLayer {
     }
 
     @Transactional
-    public void updateGame(Game model){
-        Game game = new Game();
-        game.setId(model.getId());
-        game.setTitle(model.getTitle());
-        game.setEsrbRating(model.getEsrbRating());
-        game.setDescription(model.getDescription());
-        game.setPrice(model.getPrice());
-        game.setStudio(model.getStudio());
-        game.setQuantity(model.getQuantity());
+    public Game updateGame(Game model){
+        Optional<Game> game = gameRepository.findById(model.getId());
+        if(game.isPresent()) {
+            Game updateGame = new Game();
+            updateGame.setId(model.getId());
+            updateGame.setTitle(model.getTitle());
+            updateGame.setEsrbRating(model.getEsrbRating());
+            updateGame.setDescription(model.getDescription());
+            updateGame.setPrice(model.getPrice());
+            updateGame.setStudio(model.getStudio());
+            updateGame.setQuantity(model.getQuantity());
 
-        gameRepository.save(game);
+            updateGame = gameRepository.save(updateGame);
+
+        } else {
+            throw new IllegalArgumentException("There is no match for this game.");
+        }
+        return model;
     }
+
 
     @Transactional
     public void deleteGame(int id){
@@ -101,9 +109,9 @@ public class ServiceLayer {
     }
 
 // Console
-    public void saveConsole(Console console) {
-        consoleRepository.saveConsole(console);
-    }
+//    public void saveConsole(Console console) {
+//        consoleRepository.saveConsole(console);
+//    }
 
 
 
