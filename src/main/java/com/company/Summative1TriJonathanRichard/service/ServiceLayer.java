@@ -102,6 +102,21 @@ public class ServiceLayer {
     }
 
 // TShirt
+    public List<TShirt> tShirtGetAll() {
+        return tshirtRepository.findAll();
+    }
+    public Optional<TShirt> tShirtById(int id){
+        return tshirtRepository.findById(id);
+    }
+    public List<TShirt> tShirtByColor(String color){
+        return tshirtRepository.findByColor(color);
+    }
+    public List<TShirt> tShirtBySize(String size){
+        return tshirtRepository.findBySize(size);
+    }
+    public TShirt tShirtCreate(TShirt tShirt){
+        return tshirtRepository.save(tShirt);
+    }
     public void deleteTShirtById(int id) {
         Optional<TShirt> deleteThis = tshirtRepository.findById(id);
         if(deleteThis.isPresent()) {
