@@ -4,6 +4,7 @@ import com.company.Summative1TriJonathanRichard.model.Console;
 import com.company.Summative1TriJonathanRichard.model.Game;
 import com.company.Summative1TriJonathanRichard.model.TShirt;
 import com.company.Summative1TriJonathanRichard.repository.*;
+import net.bytebuddy.pool.TypePool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,8 +102,13 @@ public class ServiceLayer {
     }
 
 // Console
-    public void saveConsole(Console console) {
-        consoleRepository.saveConsole(console);
+    public void deleteConsoleById(int id){
+        Optional<Console> desiredDelete = consoleRepository.findById(id);
+        if(desiredDelete.isPresent()){
+            consoleRepository.deleteById(id);
+        }else{
+            throw new IllegalArgumentException("Cannot find any matches for this ID");
+        }
     }
 
 
