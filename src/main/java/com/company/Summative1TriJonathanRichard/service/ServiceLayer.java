@@ -111,8 +111,8 @@ public Console saveConsole(Console console) {
             throw new IllegalArgumentException("There is no match for this Game Id");
         }
     }
-    public List<Console>findConsoleByManufacturer(String manufacturer){
-        return consoleRepository.findConsoleByManufacturer(manufacturer);
+    public List<Console> findConsoleByManufacturer(String manufacturer){
+        return consoleRepository.findByManufacturer(manufacturer);
     }
 
     @Transactional
@@ -146,6 +146,18 @@ public Console saveConsole(Console console) {
     public TShirt tShirtCreate(TShirt tShirt){
         return tshirtRepository.save(tShirt);
     }
+
+    public TShirt updateTShirtById( TShirt model, int id){
+        Optional<TShirt> updateThis = tshirtRepository.findById(id);
+        if(updateThis.isPresent()) {
+            model.setId(id);
+            tshirtRepository.save(model);
+        }else{
+            throw new IllegalArgumentException("No matches for this Id.");
+        }
+        return null;
+    }
+
     public void deleteTShirtById(int id) {
         Optional<TShirt> deleteThis = tshirtRepository.findById(id);
         if(deleteThis.isPresent()) {
@@ -179,17 +191,7 @@ public Console saveConsole(Console console) {
             throw new IllegalArgumentException("There is no match for this Game Id");
         }
     }
-    public TShirt updateTShirtById( TShirt model, int id){
-        Optional<TShirt> updateThis = tshirtRepository.findById(id);
-        if(updateThis.isPresent()) {
-            model.setId(id);
-            tshirtRepository.save(model);
-        }else{
-            throw new IllegalArgumentException("No matches for this Id.");
-        }
-        return null;
-    }
 
-// Invoice
+
 
 }

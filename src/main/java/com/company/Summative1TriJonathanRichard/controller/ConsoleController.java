@@ -24,12 +24,12 @@ public class ConsoleController {
     @Autowired
     ConsoleRepository consoleRepository;
 
-    @PostMapping("")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Console createNewConsole(@RequestBody @Valid Console console){
         return serviceLayer.saveConsole(console);
     }
-    @GetMapping("")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<Console> getAllConsoles(){
         return serviceLayer.findAllConsoles();
@@ -43,12 +43,12 @@ public class ConsoleController {
 
     @GetMapping("/manufacturer/{manufacturer}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Console> consoleByManufacturer(String manufacturer){
+    public List<Console> getConsoleByManufacturer(@PathVariable String manufacturer){
         return serviceLayer.findConsoleByManufacturer(manufacturer);
     }
 
 
-    @PutMapping("")
+    @PutMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateConsole(@RequestBody Console console) {
         serviceLayer.updateConsole(console);
