@@ -111,15 +111,8 @@ public Console saveConsole(Console console) {
             throw new IllegalArgumentException("There is no match for this Game Id");
         }
     }
-    public Optional<List<Console>> findConsoleByManufacturer(String manufacturer){
-        Optional<List<Console>> foundConsole = consoleRepository.findByManufacturer(manufacturer);
-        if(foundConsole.get().isEmpty()){
-            throw new RuntimeException();
-        } else {
-            System.out.println(foundConsole);
-            return consoleRepository.findByManufacturer(manufacturer);
-        }
-
+    public List<Console>findConsoleByManufacturer(String manufacturer){
+        return consoleRepository.findConsoleByManufacturer(manufacturer);
     }
 
     @Transactional
