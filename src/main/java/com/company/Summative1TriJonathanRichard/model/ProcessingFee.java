@@ -14,7 +14,7 @@ import java.util.Objects;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "processing_fee")
 public class ProcessingFee {
-
+    @Id
     @Column(name = "product_type")
     @Size(max = 20)
     private String productType;

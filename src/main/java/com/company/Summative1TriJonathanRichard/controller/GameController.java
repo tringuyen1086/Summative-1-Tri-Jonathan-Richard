@@ -24,7 +24,7 @@ public class GameController {
 
     @ResponseStatus(HttpStatus.CREATED)
 
-    public Game addGame(@RequestBody @Valid  Game game) {
+    public Game createNewGame(@RequestBody @Valid  Game game) {
 
         return serviceLayer.saveGame(game);
 
