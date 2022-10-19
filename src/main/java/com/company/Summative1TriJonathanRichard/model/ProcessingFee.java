@@ -17,7 +17,7 @@ public class ProcessingFee {
 
     @Id
     @Column(name = "product_type")
-    @NotNull
+    @NotNull(message = "Please enter an ID")
     @Size(max = 20)
     private String productType;
 
