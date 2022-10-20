@@ -21,9 +21,6 @@ public class ConsoleController {
     @Autowired
     ServiceLayer serviceLayer;
 
-    @Autowired
-    ConsoleRepository consoleRepository;
-
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Console createNewConsole(@RequestBody @Valid Console console){

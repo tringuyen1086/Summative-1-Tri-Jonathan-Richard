@@ -189,6 +189,8 @@ public class ServiceLayer {
         }
     }
 
-
+    public List<Invoice> findInvoiceByName(String name){
+        return invoiceRepository.findByName(name);
+    }
 
 }
