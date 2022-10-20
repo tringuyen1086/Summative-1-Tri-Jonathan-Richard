@@ -174,7 +174,7 @@ public class ServiceLayer {
         ProcessingFee newProcessingFee = new ProcessingFee(invoice.getItemType());
 
         switch (invoice.getItemType()){
-            case "Game": {
+            case "game": {
                 Game fee = gameRepository.findById(invoice.getItemId()).get();
                 //need to set the invoice's item type to calculate quantity correctly
                 invoice.setUnitPrice(fee.getPrice());
@@ -192,7 +192,7 @@ public class ServiceLayer {
 
 
                 //
-            } case "Console":{
+            } case "console":{
                 Console fee = consoleRepository.findById(invoice.getItemId()).get();
                 //need to set the invoice's item type to calculate quantity correctly
                 invoice.setUnitPrice(fee.getPrice());
@@ -208,7 +208,7 @@ public class ServiceLayer {
                 invoice.setTotal(invoice.getSubtotal() + invoice.getTax() + invoice.getProcessingFee());
                 return invoiceRepository.save(invoice);
 
-            } case "Tshirt":{
+            } case "tshirt":{
                 TShirt fee = tshirtRepository.findById(invoice.getItemId()).get();
                 //need to set the invoice's item type to calculate quantity correctly
                 invoice.setUnitPrice(fee.getPrice());
