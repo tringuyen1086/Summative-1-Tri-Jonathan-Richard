@@ -9,8 +9,10 @@ import com.company.Summative1TriJonathanRichard.repository.*;
 import net.bytebuddy.pool.TypePool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.NoTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -169,15 +171,12 @@ public class ServiceLayer {
         }
     }
 
-// Invoice
+ // Invoice
+
     @Transactional
     public Invoice saveInvoice(Invoice invoice){
         invoice = invoiceRepository.save(invoice);
-        if (invoice.getQuantity() == 0){
-            throw new IllegalArgumentException("Your Quantity can");
-        }
         return invoice;
-    }
 
     public List<Invoice> findAllInvoices() {
 
@@ -190,7 +189,7 @@ public class ServiceLayer {
         if (invoice.isPresent()) {
             return invoice.get();
         } else {
-            throw new IllegalArgumentException("There is no match for this Game Id");
+            throw new IllegalArgumentException("There is no match for this Invoice Id");
         }
     }
 
