@@ -56,13 +56,8 @@ public class ServiceLayer {
         return gameList;
     }
 
-    public Game findGameById(int id) {
-        Optional<Game> game = gameRepository.findById(id);
-        if (game.isPresent()) {
-            return game.get();
-        } else {
-            throw new IllegalArgumentException("There is no match for this Game Id");
-        }
+    public Optional<Game> findGameById(int id) {
+        return gameRepository.findById(id);
     }
 
     public List<Game> findGameByStudio(String studio){
@@ -173,19 +168,19 @@ public class ServiceLayer {
         invoice = invoiceRepository.save(invoice);
         return invoice;
 
-    public List<Invoice> findAllInvoices() {
-
-        List<Invoice> invoiceList = invoiceRepository.findAll();
-        return invoiceList;
-    }
-
-    public Invoice findInvoiceById(int id) {
-        Optional<Invoice> invoice = invoiceRepository.findById(id);
-        if (invoice.isPresent()) {
-            return invoice.get();
-        } else {
-            throw new IllegalArgumentException("There is no match for this Invoice Id");
-        }
+//    public List<Invoice> findAllInvoices() {
+//
+//        List<Invoice> invoiceList = invoiceRepository.findAll();
+//        return invoiceList;
+//    }
+//
+//    public Invoice findInvoiceById(int id) {
+//        Optional<Invoice> invoice = invoiceRepository.findById(id);
+//        if (invoice.isPresent()) {
+//            return invoice.get();
+//        } else {
+//            throw new IllegalArgumentException("There is no match for this Invoice Id");
+//        }
     }
 
 

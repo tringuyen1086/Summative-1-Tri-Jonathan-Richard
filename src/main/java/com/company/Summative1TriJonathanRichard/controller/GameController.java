@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Validated
 @RestController
@@ -39,7 +40,7 @@ public class GameController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Game getGameById(@PathVariable Integer id){
+    public Optional<Game> getGameById(@PathVariable Integer id){
         return serviceLayer.findGameById(id);
 
     }

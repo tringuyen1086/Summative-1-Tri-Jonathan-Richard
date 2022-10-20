@@ -31,18 +31,18 @@ public class InvoiceController {
 
     }
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public List<Invoice> getAllInvoices() {
-        return serviceLayer.findAllInvoices();
+//    @GetMapping()
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<Invoice> getAllInvoices() {
+//        return serviceLayer.findAllInvoices();
+//
+//    }
 
-    }
-
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Invoice getInvoiceById(@PathVariable Integer id){
-        return serviceLayer.findInvoiceById(id);
-
-    }
+//    @GetMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public Invoice getInvoiceById(@PathVariable Integer id){
+//        return serviceLayer.findInvoiceById(id);
+//
+//    }
 
 }
