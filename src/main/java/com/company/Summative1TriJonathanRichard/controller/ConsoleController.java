@@ -37,7 +37,7 @@ public class ConsoleController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Console getConsoleById(@PathVariable Integer id){
+    public Optional<Console> getConsoleById(@PathVariable Integer id){
         return serviceLayer.findConsoleById(id);
     }
 
