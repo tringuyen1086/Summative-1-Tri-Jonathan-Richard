@@ -10,6 +10,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+//Consoles: 14.99
+//        T-shirts: 1.99
+//        Games: 1.49
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "processing_fee")

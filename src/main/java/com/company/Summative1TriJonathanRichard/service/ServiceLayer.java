@@ -9,8 +9,10 @@ import com.company.Summative1TriJonathanRichard.repository.*;
 import net.bytebuddy.pool.TypePool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.NoTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,32 +56,28 @@ public class ServiceLayer {
         return gameList;
     }
 
-    public Game findGameById(int id) {
-        Optional<Game> game = gameRepository.findById(id);
-        if (game.isPresent()) {
-            return game.get();
-        } else {
-            throw new IllegalArgumentException("There is no match for this Game Id");
-        }
+    public Optional<Game> findGameById(int id) {
+        return gameRepository.findById(id);
     }
 
-    public List<Game> findGameByStudio(String studio){
+    public List<Game> findGameByStudio(String studio) {
         return gameRepository.findByStudio(studio);
     }
-    public List<Game> findGameByEsrbRating(String esrbRating){
+
+    public List<Game> findGameByEsrbRating(String esrbRating) {
         return gameRepository.findByEsrbRating(esrbRating);
     }
 
-    public List<Game> findGameByTitle(String title){
+    public List<Game> findGameByTitle(String title) {
         return gameRepository.findByTitle(title);
     }
 
     @Transactional
-    public Game updateGameById(Game game, int id){
+    public Game updateGameById(Game game, int id) {
         Optional<Game> updateGame = gameRepository.findById(id);
-        if(updateGame.isPresent()) {
+        if (updateGame.isPresent()) {
             game.setId(id);
-           gameRepository.save(game);
+            gameRepository.save(game);
         } else {
             throw new IllegalArgumentException("There is no match for this Game Id.");
         }
@@ -87,33 +85,35 @@ public class ServiceLayer {
     }
 
     @Transactional
-    public void deleteGame(int id){
+    public void deleteGame(int id) {
         gameRepository.deleteById(id);
     }
 
-// Console
+    // Console
     @Transactional
     public Console saveConsole(Console console) {
         console = consoleRepository.save(console);
         return console;
-}
+    }
 
     public List<Console> findAllConsoles() {
 
         List<Console> consoleList = consoleRepository.findAll();
         return consoleList;
     }
-    public Optional<Console> findConsoleById(int id){
+
+    public Optional<Console> findConsoleById(int id) {
         return consoleRepository.findById(id);
     }
-    public List<Console> findConsoleByManufacturer(String manufacturer){
+
+    public List<Console> findConsoleByManufacturer(String manufacturer) {
         return consoleRepository.findByManufacturer(manufacturer);
     }
 
     @Transactional
-    public Console updateConsoleById(Console console, int id){
+    public Console updateConsoleById(Console console, int id) {
         Optional<Console> updateConsole = consoleRepository.findById(id);
-        if(updateConsole.isPresent()) {
+        if (updateConsole.isPresent()) {
             console.setId(id);
             consoleRepository.save(console);
         } else {
@@ -123,33 +123,37 @@ public class ServiceLayer {
     }
 
     @Transactional
-    public void deleteConsole(int id){
+    public void deleteConsole(int id) {
         consoleRepository.deleteById(id);
     }
 
-// TShirt
+    // TShirt
     public List<TShirt> tShirtGetAll() {
         return tshirtRepository.findAll();
     }
-    public Optional<TShirt> tShirtById(int id){
+
+    public Optional<TShirt> tShirtById(int id) {
         return tshirtRepository.findById(id);
     }
-    public List<TShirt> tShirtByColor(String color){
+
+    public List<TShirt> tShirtByColor(String color) {
         return tshirtRepository.findByColor(color);
     }
-    public List<TShirt> tShirtBySize(String size){
+
+    public List<TShirt> tShirtBySize(String size) {
         return tshirtRepository.findBySize(size);
     }
-    public TShirt tShirtCreate(TShirt tShirt){
+
+    public TShirt tShirtCreate(TShirt tShirt) {
         return tshirtRepository.save(tShirt);
     }
 
-    public TShirt updateTShirtById( TShirt tShirt, int id){
+    public TShirt updateTShirtById(TShirt tShirt, int id) {
         Optional<TShirt> updateTShirt = tshirtRepository.findById(id);
-        if(updateTShirt.isPresent()) {
+        if (updateTShirt.isPresent()) {
             tShirt.setId(id);
             tshirtRepository.save(tShirt);
-        }else{
+        } else {
             throw new IllegalArgumentException("No matches for this Id.");
         }
         return null;
@@ -157,42 +161,39 @@ public class ServiceLayer {
 
     public void deleteTShirtById(int id) {
         Optional<TShirt> deleteThis = tshirtRepository.findById(id);
-        if(deleteThis.isPresent()) {
+        if (deleteThis.isPresent()) {
             tshirtRepository.deleteById(id);
-        }else {
+        } else {
             throw new IllegalArgumentException("No matches for this Id");
         }
     }
 
-// Invoice
+    // Invoice
+
     @Transactional
-    public Invoice saveInvoice(Invoice invoice){
+    public Invoice saveInvoice(Invoice invoice) {
         invoice = invoiceRepository.save(invoice);
-        if (invoice.getQuantity() == 0){
-            throw new IllegalArgumentException("Your Quantity can");
-        }
         return invoice;
     }
 
-    public List<Invoice> findAllInvoices() {
-
-        List<Invoice> invoiceList = invoiceRepository.findAll();
-        return invoiceList;
-    }
-
-    public Invoice findInvoiceById(int id) {
-        Optional<Invoice> invoice = invoiceRepository.findById(id);
-        if (invoice.isPresent()) {
-            return invoice.get();
-        } else {
-            throw new IllegalArgumentException("There is no match for this Game Id");
-        }
-    }
-
-//    public List<Invoice> getInvoiceByCustomer(String name){
-//        return invoiceRepository.findInvoiceByCustomer(name);
+//    public List<Invoice> findAllInvoices() {
+//
+//        List<Invoice> invoiceList = invoiceRepository.findAll();
+//        return invoiceList;
 //    }
+//
+//    public Invoice findInvoiceById(int id) {
+//        Optional<Invoice> invoice = invoiceRepository.findById(id);
+//        if (invoice.isPresent()) {
+//            return invoice.get();
+//        } else {
+//            throw new IllegalArgumentException("There is no match for this Invoice Id");
+//        }
 
+
+    public List<Invoice> findInvoiceByName(String name){
+        return invoiceRepository.findByName(name);
+    }
 
 
 }

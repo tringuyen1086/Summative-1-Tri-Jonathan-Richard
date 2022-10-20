@@ -3,6 +3,7 @@ package com.company.Summative1TriJonathanRichard.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -49,24 +50,45 @@ public class Invoice {
 
     @NotNull(message = "Please enter an unit price")
     @Column(name = "unit_price")
+    @Digits(integer = 5,fraction = 2)
     private double unitPrice;
 
     @NotNull(message = "Please enter a quantity")
     private int quantity;
 
     @NotNull(message = "Please enter a subtotal")
+    @Digits(integer = 5,fraction = 2)
     private double subtotal;
 
     @NotNull(message = "Please enter a tax")
+    @Digits(integer = 5,fraction = 2)
     private double tax;
 
     @Column(name = "processing_fee")
+    @Digits(integer = 5,fraction = 2)
     private double processingFee;
     @NotNull(message = "Please enter a total")
+    @Digits(integer = 5,fraction = 2)
     private double total;
 
     public Invoice(){
 
+    }
+
+    public Invoice(String name, String street, String city, String state, String zipcode, String itemType, int itemId, double unitPrice, int quantity, double subtotal, double total) {
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.itemType = itemType;
+        this.itemId = itemId;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+//        this.tax = new SalesTaxRate(state);
+  //      this.processingFee = new ProcessingFee();
+        this.total = total;
     }
 
     public Invoice(Integer id, String name, String street, String city, String state, String zipcode, String itemType, int itemId, double unitPrice, int quantity, double subtotal, double tax, double processingFee, double total) {
@@ -81,8 +103,8 @@ public class Invoice {
         this.unitPrice = unitPrice;
         this.quantity = quantity;
         this.subtotal = subtotal;
-        this.tax = tax;
-        this.processingFee = processingFee;
+        //this.tax = tax;
+        //this.processingFee = processingFee;
         this.total = total;
     }
 
@@ -174,21 +196,21 @@ public class Invoice {
         this.subtotal = subtotal;
     }
 
-    public double getTax() {
-        return tax;
-    }
-
-    public void setTax(double tax) {
-        this.tax = tax;
-    }
-
-    public double getProcessingFee() {
-        return processingFee;
-    }
-
-    public void setProcessingFee(double processingFee) {
-        this.processingFee = processingFee;
-    }
+//    public double getTax() {
+//        return tax;
+//    }
+//
+//    public void setTax(double tax) {
+//        this.tax = tax;
+//    }
+//
+//    public double getProcessingFee() {
+//        return processingFee;
+//    }
+//
+//    public void setProcessingFee(double processingFee) {
+//        this.processingFee = processingFee;
+//    }
 
     public double getTotal() {
         return total;
@@ -203,7 +225,7 @@ public class Invoice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return itemId == invoice.itemId && Double.compare(invoice.unitPrice, unitPrice) == 0 && quantity == invoice.quantity && Double.compare(invoice.subtotal, subtotal) == 0 && Double.compare(invoice.tax, tax) == 0 && Double.compare(invoice.processingFee, processingFee) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(id, invoice.id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(itemType, invoice.itemType);
+        return itemId == invoice.itemId && Double.compare(invoice.unitPrice, unitPrice) == 0 && quantity == invoice.quantity && Double.compare(invoice.subtotal, subtotal) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(id, invoice.id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(itemType, invoice.itemType) && Objects.equals(tax, invoice.tax) && Objects.equals(processingFee, invoice.processingFee);
     }
 
     @Override

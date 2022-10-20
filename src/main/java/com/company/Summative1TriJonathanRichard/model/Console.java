@@ -3,6 +3,7 @@ package com.company.Summative1TriJonathanRichard.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,6 +34,7 @@ public class Console {
     private String processor;
 
     @NotNull(message = "You must supply a value for decimal")
+    @Digits(integer = 5,fraction = 2)
     private double price;
 
     @NotNull(message = "You must supply a value for int")
