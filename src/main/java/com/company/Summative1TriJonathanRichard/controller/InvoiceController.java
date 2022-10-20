@@ -44,4 +44,13 @@ public class InvoiceController {
         return serviceLayer.findInvoiceByName(name);
     }
 
+
+
+//    @GetMapping("/customer/{customer}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<Invoice> getInvoiceByCustomerName(@PathVariable String name){
+//        return serviceLayer.getInvoiceByCustomer(name);
+//    }
+
+
 }

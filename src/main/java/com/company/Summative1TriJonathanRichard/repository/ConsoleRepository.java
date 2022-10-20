@@ -9,5 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ConsoleRepository extends JpaRepository<Console, Integer> {
+
     List<Console> findByManufacturer(String manufacturer);
+
 }
