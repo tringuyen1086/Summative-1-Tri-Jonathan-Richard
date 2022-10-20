@@ -71,11 +71,17 @@ public class Invoice {
     @Digits(integer = 5,fraction = 2)
     private double total;
 
+
+    //TODO: subtotal = quantity * unitprice
+    //TODO: salestax = state's state tax
+    //TODO: processingfee = product's fee (Consoles: 14.99, T-shirts: 1.98, Games: 1.49)
+    //TODO: if quantity is greater than 10, add 15.49
+    //TODO: total
     public Invoice(){
 
     }
 
-    public Invoice(String name, String street, String city, String state, String zipcode, String itemType, int itemId, double unitPrice, int quantity, double subtotal, double total) {
+    public Invoice(String name, String street, String city, String state, String zipcode, String itemType, int itemId,  int quantity) {
         this.name = name;
         this.street = street;
         this.city = city;
@@ -83,30 +89,25 @@ public class Invoice {
         this.zipcode = zipcode;
         this.itemType = itemType;
         this.itemId = itemId;
-        this.unitPrice = unitPrice;
         this.quantity = quantity;
-        this.subtotal = subtotal;
-//        this.tax = new SalesTaxRate(state);
-  //      this.processingFee = new ProcessingFee();
-        this.total = total;
     }
 
-    public Invoice(Integer id, String name, String street, String city, String state, String zipcode, String itemType, int itemId, double unitPrice, int quantity, double subtotal, double tax, double processingFee, double total) {
-        this.id = id;
-        this.name = name;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-        this.itemType = itemType;
-        this.itemId = itemId;
-        this.unitPrice = unitPrice;
-        this.quantity = quantity;
-        this.subtotal = subtotal;
-        //this.tax = tax;
-        //this.processingFee = processingFee;
-        this.total = total;
-    }
+//    public Invoice(Integer id, String name, String street, String city, String state, String zipcode, String itemType, int itemId, double unitPrice, int quantity, double subtotal, double tax, double processingFee, double total) {
+//        this.id = id;
+//        this.name = name;
+//        this.street = street;
+//        this.city = city;
+//        this.state = state;
+//        this.zipcode = zipcode;
+//        this.itemType = itemType;
+//        this.itemId = itemId;
+//        this.unitPrice = unitPrice;
+//        this.quantity = quantity;
+//        this.subtotal = subtotal;
+//        //this.tax = tax;
+//        //this.processingFee = processingFee;
+//        this.total = total;
+//    }
 
     public Integer getId() {
         return id;
@@ -196,21 +197,21 @@ public class Invoice {
         this.subtotal = subtotal;
     }
 
-//    public double getTax() {
-//        return tax;
-//    }
-//
-//    public void setTax(double tax) {
-//        this.tax = tax;
-//    }
-//
-//    public double getProcessingFee() {
-//        return processingFee;
-//    }
-//
-//    public void setProcessingFee(double processingFee) {
-//        this.processingFee = processingFee;
-//    }
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
+    public double getProcessingFee() {
+        return processingFee;
+    }
+
+    public void setProcessingFee(double processingFee) {
+        this.processingFee = processingFee;
+    }
 
     public double getTotal() {
         return total;

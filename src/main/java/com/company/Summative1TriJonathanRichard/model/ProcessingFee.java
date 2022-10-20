@@ -29,9 +29,23 @@ public class ProcessingFee {
 
     }
 
-    public ProcessingFee(String productType, double fee) {
+    public ProcessingFee(String productType) {
         this.productType = productType;
-        this.fee = fee;
+        this.fee = findFee(productType);
+    }
+
+    public Double findFee(String productType){
+        switch (productType) {
+            case"game":
+                return 1.49;
+            case "console":
+                return 14.99;
+            case "tshirt":
+                return 1.98;
+            default:
+                return null;
+
+        }
     }
 
     public String getProductType() {
