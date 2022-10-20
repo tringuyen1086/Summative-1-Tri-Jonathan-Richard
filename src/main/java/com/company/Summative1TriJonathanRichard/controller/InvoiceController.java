@@ -21,20 +21,15 @@ public class InvoiceController {
     ServiceLayer serviceLayer;
 
     @PostMapping()
-
     @ResponseStatus(HttpStatus.CREATED)
-
     public Invoice addInvoice(@RequestBody @Valid  Invoice invoice) {
-
         return serviceLayer.saveInvoice(invoice);
-
     }
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<Invoice> getAllInvoices() {
         return serviceLayer.findAllInvoices();
-
     }
 
     @GetMapping("/{id}")
@@ -43,29 +38,12 @@ public class InvoiceController {
         return serviceLayer.findInvoiceById(id);
     }
 
-//    @PostMapping()
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Invoice addInvoice(@RequestBody @Valid  Invoice invoice) {
-//        return serviceLayer.saveInvoice(invoice);
-//    }
-//
-//    @GetMapping()
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Invoice> getAllInvoices() {
-//        return serviceLayer.findAllInvoices();
-//    }
-//
-//    @GetMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public Invoice getInvoiceById(@PathVariable Integer id){
-//        return serviceLayer.findInvoiceById(id);
-//    }
-//
-//    @GetMapping("/{name}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Invoice> getInvoiceByName(@PathVariable String name){
-//        return serviceLayer.findInvoiceByName(name);
-//    }
+    @GetMapping("/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Invoice> getInvoiceByName(@PathVariable String name){
+        return serviceLayer.findInvoiceByName(name);
+    }
+
 
 
 //    @GetMapping("/customer/{customer}")
@@ -73,7 +51,6 @@ public class InvoiceController {
 //    public List<Invoice> getInvoiceByCustomerName(@PathVariable String name){
 //        return serviceLayer.getInvoiceByCustomer(name);
 //    }
-
 
 
 }

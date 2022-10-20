@@ -176,20 +176,20 @@ public class ServiceLayer {
         return invoice;
     }
 
-//    public List<Invoice> findAllInvoices() {
-//
-//        List<Invoice> invoiceList = invoiceRepository.findAll();
-//        return invoiceList;
-//    }
-//
-//    public Invoice findInvoiceById(int id) {
-//        Optional<Invoice> invoice = invoiceRepository.findById(id);
-//        if (invoice.isPresent()) {
-//            return invoice.get();
-//        } else {
-//            throw new IllegalArgumentException("There is no match for this Invoice Id");
-//        }
+    public List<Invoice> findAllInvoices() {
 
+        List<Invoice> invoiceList = invoiceRepository.findAll();
+        return invoiceList;
+    }
+
+    public Invoice findInvoiceById(int id) {
+        Optional<Invoice> invoice = invoiceRepository.findById(id);
+        if (invoice.isPresent()) {
+            return invoice.get();
+        } else {
+            throw new IllegalArgumentException("There is no match for this Invoice Id");
+        }
+    }
 
     public List<Invoice> findInvoiceByName(String name){
         return invoiceRepository.findByName(name);
