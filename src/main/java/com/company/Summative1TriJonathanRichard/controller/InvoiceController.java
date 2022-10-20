@@ -38,19 +38,9 @@ public class InvoiceController {
         return serviceLayer.findInvoiceById(id);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/customer/{name}")
     @ResponseStatus(HttpStatus.OK)
     public List<Invoice> getInvoiceByName(@PathVariable String name){
         return serviceLayer.findInvoiceByName(name);
     }
-
-
-
-//    @GetMapping("/customer/{customer}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Invoice> getInvoiceByCustomerName(@PathVariable String name){
-//        return serviceLayer.getInvoiceByCustomer(name);
-//    }
-
-
 }
