@@ -37,11 +37,8 @@ public class ConsoleControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private ObjectMapper mapper = new ObjectMapper();
-
     @MockBean
     private ServiceLayer serviceLayer;
-    @MockBean
-    private ConsoleRepository consoleRepository;
     private List<Console> consoleList = new ArrayList<>();
     private Console inputConsole;
     private Console outputConsole;

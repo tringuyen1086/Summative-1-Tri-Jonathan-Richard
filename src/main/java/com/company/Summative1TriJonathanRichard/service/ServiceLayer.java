@@ -164,9 +164,10 @@ public class ServiceLayer {
  // Invoice
 
     @Transactional
-    public Invoice saveInvoice(Invoice invoice){
+    public Invoice saveInvoice(Invoice invoice) {
         invoice = invoiceRepository.save(invoice);
         return invoice;
+    }
 
 //    public List<Invoice> findAllInvoices() {
 //
@@ -183,6 +184,8 @@ public class ServiceLayer {
 //        }
     }
 
-
+    public List<Invoice> findInvoiceByName(String name){
+        return invoiceRepository.findByName(name);
+    }
 
 }
