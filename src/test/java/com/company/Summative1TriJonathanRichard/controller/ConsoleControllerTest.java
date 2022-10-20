@@ -1,7 +1,6 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
 import com.company.Summative1TriJonathanRichard.model.Console;
-import com.company.Summative1TriJonathanRichard.model.TShirt;
 import com.company.Summative1TriJonathanRichard.repository.ConsoleRepository;
 import com.company.Summative1TriJonathanRichard.service.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
