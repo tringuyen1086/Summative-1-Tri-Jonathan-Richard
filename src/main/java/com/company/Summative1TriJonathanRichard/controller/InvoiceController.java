@@ -42,7 +42,14 @@ public class InvoiceController {
     @ResponseStatus(HttpStatus.OK)
     public Invoice getInvoiceById(@PathVariable Integer id){
         return serviceLayer.findInvoiceById(id);
-
     }
+
+//    @GetMapping("/customer/{customer}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<Invoice> getInvoiceByCustomerName(@PathVariable String name){
+//        return serviceLayer.getInvoiceByCustomer(name);
+//    }
+
+
 
 }
