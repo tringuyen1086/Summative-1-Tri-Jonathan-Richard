@@ -28,9 +28,9 @@ public class TShirt {
     private String description;
     @NotNull(message = "please enter a price")
     @Digits(integer = 5,fraction = 2)
-    private double price;
+    private Double price;
     @NotNull(message = "please input a quantity")
-    private int quantity;
+    private Integer quantity;
 
     public TShirt() {
     }
