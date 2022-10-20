@@ -105,13 +105,8 @@ public class ServiceLayer {
         List<Console> consoleList = consoleRepository.findAll();
         return consoleList;
     }
-    public Console findConsoleById(int id) {
-        Optional<Console> console = consoleRepository.findById(id);
-        if (console.isPresent()) {
-            return console.get();
-        } else {
-            throw new IllegalArgumentException("There is no match for this Console Id");
-        }
+    public Optional<Console> findConsoleById(int id){
+        return consoleRepository.findById(id);
     }
     public List<Console> findConsoleByManufacturer(String manufacturer){
         return consoleRepository.findByManufacturer(manufacturer);

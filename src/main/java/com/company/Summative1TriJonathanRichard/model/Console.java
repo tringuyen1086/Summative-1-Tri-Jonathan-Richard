@@ -43,8 +43,7 @@ public class Console {
 
     }
 
-    public Console(Integer id, String model, String manufacturer, String memoryAmount, String processor, double price, int quantity) {
-        this.id = id;
+    public Console( String model, String manufacturer, String memoryAmount, String processor, double price, int quantity) {
         this.model = model;
         this.manufacturer = manufacturer;
         this.memoryAmount = memoryAmount;
