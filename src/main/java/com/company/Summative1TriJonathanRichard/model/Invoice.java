@@ -3,9 +3,7 @@ package com.company.Summative1TriJonathanRichard.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Entity
@@ -17,66 +15,42 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")
     private Integer id;
-
     @NotNull(message = "Please enter a name")
     @Size(max = 80)
     private String name;
-
     @NotNull(message = "Please enter a street")
     @Size(max = 30)
     private String street;
-
     @NotNull(message = "Please enter a city")
     @Size(max = 30)
     private String city;
-
     @NotNull(message = "Please enter a state")
     @Size(max = 2)
     private String state;
-
-
     @NotNull(message = "Please enter a zipcode")
     @Size(max = 5)
     private String zipcode;
-
     @NotNull(message = "Please enter an item-type")
     @Column(name = "item_type")
     @Size(max = 20)
     private String itemType;
-
     @NotNull(message = "Please enter an item-ID")
     @Column(name = "item_id")
     private int itemId;
-
     @NotNull(message = "Please enter an unit price")
     @Column(name = "unit_price")
-    @Digits(integer = 5,fraction = 2)
     private double unitPrice;
-
     @NotNull(message = "Please enter a quantity")
     private int quantity;
-
     @NotNull(message = "Please enter a subtotal")
-    @Digits(integer = 5,fraction = 2)
     private double subtotal;
-
     @NotNull(message = "Please enter a tax")
-    @Digits(integer = 5,fraction = 2)
     private double tax;
-
     @Column(name = "processing_fee")
-    @Digits(integer = 5,fraction = 2)
     private double processingFee;
     @NotNull(message = "Please enter a total")
-    @Digits(integer = 5,fraction = 2)
     private double total;
 
-
-    //TODO: subtotal = quantity * unitprice
-    //TODO: salestax = state's state tax
-    //TODO: processingfee = product's fee (Consoles: 14.99, T-shirts: 1.98, Games: 1.49)
-    //TODO: if quantity is greater than 10, add 15.49
-    //TODO: total
     public Invoice(){
 
     }
@@ -91,23 +65,6 @@ public class Invoice {
         this.itemId = itemId;
         this.quantity = quantity;
     }
-
-//    public Invoice(Integer id, String name, String street, String city, String state, String zipcode, String itemType, int itemId, double unitPrice, int quantity, double subtotal, double tax, double processingFee, double total) {
-//        this.id = id;
-//        this.name = name;
-//        this.street = street;
-//        this.city = city;
-//        this.state = state;
-//        this.zipcode = zipcode;
-//        this.itemType = itemType;
-//        this.itemId = itemId;
-//        this.unitPrice = unitPrice;
-//        this.quantity = quantity;
-//        this.subtotal = subtotal;
-//        //this.tax = tax;
-//        //this.processingFee = processingFee;
-//        this.total = total;
-//    }
 
     public Integer getId() {
         return id;
