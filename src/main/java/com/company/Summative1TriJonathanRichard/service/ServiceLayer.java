@@ -1,10 +1,7 @@
 package com.company.Summative1TriJonathanRichard.service;
 
 import com.company.Summative1TriJonathanRichard.exception.NotFoundException;
-import com.company.Summative1TriJonathanRichard.model.Console;
-import com.company.Summative1TriJonathanRichard.model.Game;
-import com.company.Summative1TriJonathanRichard.model.Invoice;
-import com.company.Summative1TriJonathanRichard.model.TShirt;
+import com.company.Summative1TriJonathanRichard.model.*;
 import com.company.Summative1TriJonathanRichard.repository.*;
 import net.bytebuddy.pool.TypePool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,8 +169,64 @@ public class ServiceLayer {
 
     @Transactional
     public Invoice saveInvoice(Invoice invoice) {
-        invoice = invoiceRepository.save(invoice);
-        return invoice;
+        SalesTaxRate newRate = new SalesTaxRate(invoice.getState());
+        ProcessingFee newProcessingFee = new ProcessingFee(invoice.getItemType());
+
+        switch (invoice.getItemType()){
+            case "game": {
+                Game fee = gameRepository.findById(invoice.getItemId()).get();
+                //need to set the invoice's item type to calculate quantity correctly
+                invoice.setUnitPrice(fee.getPrice());
+                invoice.setSubtotal(invoice.getQuantity() * invoice.getUnitPrice());
+                invoice.setTax(invoice.getSubtotal() * newRate.getRate());
+
+                if (invoice.getQuantity() > 10){
+                    invoice.setProcessingFee(15.49 + newProcessingFee.getFee());
+                } else {
+                    invoice.setProcessingFee(newProcessingFee.getFee());
+                }
+
+                invoice.setTotal(invoice.getSubtotal() + invoice.getTax() + invoice.getProcessingFee());
+                return invoiceRepository.save(invoice);
+
+
+                //
+            } case "console":{
+                Console fee = consoleRepository.findById(invoice.getItemId()).get();
+                //need to set the invoice's item type to calculate quantity correctly
+                invoice.setUnitPrice(fee.getPrice());
+                invoice.setSubtotal(invoice.getQuantity() * invoice.getUnitPrice());
+                invoice.setTax(invoice.getSubtotal() * newRate.getRate());
+
+                if (invoice.getQuantity() > 10){
+                    invoice.setProcessingFee(15.49 + newProcessingFee.getFee());
+                } else {
+                    invoice.setProcessingFee(newProcessingFee.getFee());
+                }
+
+                invoice.setTotal(invoice.getSubtotal() + invoice.getTax() + invoice.getProcessingFee());
+                return invoiceRepository.save(invoice);
+
+            } case "tshirt":{
+                TShirt fee = tshirtRepository.findById(invoice.getItemId()).get();
+                //need to set the invoice's item type to calculate quantity correctly
+                invoice.setUnitPrice(fee.getPrice());
+                invoice.setSubtotal(invoice.getQuantity() * invoice.getUnitPrice());
+                invoice.setTax(invoice.getSubtotal() * newRate.getRate());
+
+                if (invoice.getQuantity() > 10){
+                    invoice.setProcessingFee(15.49 + newProcessingFee.getFee());
+                } else {
+                    invoice.setProcessingFee(newProcessingFee.getFee());
+                }
+
+                invoice.setTotal(invoice.getSubtotal() + invoice.getTax() + invoice.getProcessingFee());
+                return invoiceRepository.save(invoice);
+
+            }
+            default:
+                return null;
+        }
     }
 
     public List<Invoice> findAllInvoices() {
