@@ -14,9 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/invoice")
 public class InvoiceController {
-
-    @Autowired
-    InvoiceRepository invoiceRepository;
     @Autowired
     ServiceLayer serviceLayer;
 
