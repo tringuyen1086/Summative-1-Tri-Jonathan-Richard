@@ -3,14 +3,10 @@ package com.company.Summative1TriJonathanRichard.service;
 import com.company.Summative1TriJonathanRichard.exception.NotFoundException;
 import com.company.Summative1TriJonathanRichard.model.*;
 import com.company.Summative1TriJonathanRichard.repository.*;
-import net.bytebuddy.pool.TypePool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.NoTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Digits;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,19 +51,35 @@ public class ServiceLayer {
     }
 
     public Optional<Game> findGameById(int id) {
-        return gameRepository.findById(id);
+        if(gameRepository.findById(id).isPresent()){
+            return gameRepository.findById(id);
+        }else {
+            throw new NotFoundException("unable to find this Game");
+        }
     }
 
     public List<Game> findGameByStudio(String studio) {
-        return gameRepository.findByStudio(studio);
+        if(gameRepository.findByStudio(studio).size() >= 1){
+            return gameRepository.findByStudio(studio);
+        }else {
+            throw new NotFoundException("unable to find this Game");
+        }
     }
 
     public List<Game> findGameByEsrbRating(String esrbRating) {
-        return gameRepository.findByEsrbRating(esrbRating);
+        if(gameRepository.findByEsrbRating(esrbRating).size() >= 1){
+            return gameRepository.findByEsrbRating(esrbRating);
+        }else {
+            throw new NotFoundException("unable to find this Game");
+        }
     }
 
     public List<Game> findGameByTitle(String title) {
-        return gameRepository.findByTitle(title);
+        if(gameRepository.findByTitle(title).size() >= 1){
+            return gameRepository.findByTitle(title);
+        }else {
+            throw new NotFoundException("unable to find this Game");
+        }
     }
 
     @Transactional
@@ -77,7 +89,7 @@ public class ServiceLayer {
             game.setId(id);
             gameRepository.save(game);
         } else {
-            throw new IllegalArgumentException("There is no match for this Game Id.");
+            throw new NotFoundException("There is no match for this Game Id.");
         }
         return null;
     }
@@ -101,12 +113,19 @@ public class ServiceLayer {
     }
 
     public Optional<Console> findConsoleById(int id) {
-        return consoleRepository.findById(id);
+        if(consoleRepository.findById(id).isPresent()){
+            return consoleRepository.findById(id);
+        }else {
+            throw new NotFoundException("unable to find this Console");
+        }
     }
 
     public List<Console> findConsoleByManufacturer(String manufacturer) {
-        return consoleRepository.findByManufacturer(manufacturer);
-    }
+        if(consoleRepository.findByManufacturer(manufacturer).size() >= 1){
+            return consoleRepository.findByManufacturer(manufacturer);
+        }else {
+            throw new NotFoundException("unable to find this Console");
+        }    }
 
     @Transactional
     public Console updateConsoleById(Console console, int id) {
@@ -115,7 +134,7 @@ public class ServiceLayer {
             console.setId(id);
             consoleRepository.save(console);
         } else {
-            throw new IllegalArgumentException("There is no match for this Console Id.");
+            throw new NotFoundException("There is no match for this Console Id.");
         }
         return null;
     }
@@ -131,16 +150,27 @@ public class ServiceLayer {
     }
 
     public Optional<TShirt> tShirtById(int id) {
-        return tshirtRepository.findById(id);
+            if(tshirtRepository.findById(id).isPresent()){
+             return tshirtRepository.findById(id);
+            }else {
+                throw new NotFoundException("unable to find this T-Shirt");
+            }
     }
 
     public List<TShirt> tShirtByColor(String color) {
-        return tshirtRepository.findByColor(color);
-    }
+        if(tshirtRepository.findByColor(color).size() >= 1){
+            return tshirtRepository.findByColor(color);
+        }else {
+            throw new NotFoundException("unable to find this T-Shirt");
+        }
+}
 
     public List<TShirt> tShirtBySize(String size) {
-        return tshirtRepository.findBySize(size);
-    }
+        if(tshirtRepository.findBySize(size).size() >= 1){
+            return tshirtRepository.findBySize(size);
+        }else {
+            throw new NotFoundException("unable to find this T-Shirt");
+        }    }
 
     public TShirt tShirtCreate(TShirt tShirt) {
         return tshirtRepository.save(tShirt);
@@ -152,7 +182,7 @@ public class ServiceLayer {
             tShirt.setId(id);
             tshirtRepository.save(tShirt);
         } else {
-            throw new IllegalArgumentException("No matches for this Id.");
+            throw new NotFoundException("No matches for this Id.");
         }
         return null;
     }
@@ -162,7 +192,7 @@ public class ServiceLayer {
         if (deleteThis.isPresent()) {
             tshirtRepository.deleteById(id);
         } else {
-            throw new IllegalArgumentException("No matches for this Id");
+            throw new NotFoundException("No matches for this Id");
         }
     }
 
@@ -241,13 +271,16 @@ public class ServiceLayer {
         if (invoice.isPresent()) {
             return invoice.get();
         } else {
-            throw new IllegalArgumentException("There is no match for this Invoice Id");
+            throw new NotFoundException("There is no match for this Invoice Id");
         }
     }
 
     public List<Invoice> findInvoiceByName(String name){
-        return invoiceRepository.findByName(name);
-    }
+        if(invoiceRepository.findByName(name).size() >= 1){
+            return invoiceRepository.findByName(name);
+        }else {
+            throw new NotFoundException("unable to find a match for this name!");
+        }    }
 
 
 }

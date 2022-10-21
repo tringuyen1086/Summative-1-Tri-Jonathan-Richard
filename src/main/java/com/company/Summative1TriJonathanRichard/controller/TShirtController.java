@@ -43,7 +43,7 @@ public class TShirtController {
     }
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public TShirt createNewTShirt(@RequestBody @Valid TShirt tShirt){
+    public TShirt createNewTShirt(@Valid @RequestBody TShirt tShirt){
         return serviceLayer.tShirtCreate(tShirt);
     }
 

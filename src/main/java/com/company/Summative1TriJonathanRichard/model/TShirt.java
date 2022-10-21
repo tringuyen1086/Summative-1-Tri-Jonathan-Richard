@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -24,6 +25,7 @@ public class TShirt {
     @NotNull(message = "please enter a color")
     @Size(max = 20)
     private String color;
+    @NotNull(message = "please enter a description for this item!")
     @Size(max = 255)
     private String description;
     @NotNull(message = "please enter a price")
