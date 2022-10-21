@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,11 @@ public class ServiceLayer {
     private SalesTaxRateRepository salesTaxRateRepository;
 
     private InvoiceRepository invoiceRepository;
+
+    public static int count = 0;
+    public static String[] listOfStates ={"AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"};
+    public static String[] listOfProductTypes = {"console","tshirt","game"};
+
 
     @Autowired
     public ServiceLayer(GameRepository gameRepository, ConsoleRepository consoleRepository,
@@ -200,6 +206,18 @@ public class ServiceLayer {
 
     @Transactional
     public Invoice saveInvoice(Invoice invoice) {
+        System.out.println(count);
+        if(count==0){
+            Arrays.stream(listOfStates).forEach(state->{
+                SalesTaxRate createThis = new SalesTaxRate(state);
+                salesTaxRateRepository.save(createThis);
+            });
+            Arrays.stream(listOfProductTypes).forEach(type->{
+                ProcessingFee createThis = new ProcessingFee(type);
+                processingFeeRepository.save(createThis);
+            });
+            count++;
+        }
         SalesTaxRate newRate = new SalesTaxRate(invoice.getState());
         ProcessingFee newProcessingFee = new ProcessingFee(invoice.getItemType());
 
