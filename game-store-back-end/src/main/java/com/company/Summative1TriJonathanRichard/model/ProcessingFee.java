@@ -2,10 +2,7 @@ package com.company.Summative1TriJonathanRichard.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -16,13 +13,12 @@ import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "processing_fee")
+@Table(indexes = @Index(columnList = "product_type",name = "ix_product_type_fee",unique = true), name = "processing_fee")
 public class ProcessingFee {
     @Id
     @Column(name = "product_type")
     @Size(max = 20)
     private String productType;
-
     private double fee;
 
     public ProcessingFee(){
