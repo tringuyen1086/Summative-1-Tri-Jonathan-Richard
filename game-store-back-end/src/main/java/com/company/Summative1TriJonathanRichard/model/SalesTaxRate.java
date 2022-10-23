@@ -18,7 +18,6 @@ import java.util.Objects;
 public class SalesTaxRate {
 
     @Id
-    @NotNull(message = "Please enter an ID")
     @Size(min = 2, max = 2)
     private String state;
 
