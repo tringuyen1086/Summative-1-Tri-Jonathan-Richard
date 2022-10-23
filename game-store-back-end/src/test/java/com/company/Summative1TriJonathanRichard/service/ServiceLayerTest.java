@@ -1,14 +1,12 @@
 package com.company.Summative1TriJonathanRichard.service;
 
-import com.company.Summative1TriJonathanRichard.model.Console;
-import com.company.Summative1TriJonathanRichard.model.Game;
-import com.company.Summative1TriJonathanRichard.model.Invoice;
-import com.company.Summative1TriJonathanRichard.model.TShirt;
+import com.company.Summative1TriJonathanRichard.model.*;
 import com.company.Summative1TriJonathanRichard.repository.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,5 +1,6 @@
 package com.company.Summative1TriJonathanRichard.controller;
 
+import com.company.Summative1TriJonathanRichard.exception.LowInventoryException;
 import com.company.Summative1TriJonathanRichard.exception.NotFoundException;
 import com.company.Summative1TriJonathanRichard.model.CustomErrorResponse;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -59,9 +61,24 @@ public class ExceptionHandlerController {
         return returnVal;
     }
 
+    @ExceptionHandler(value ={NoSuchElementException.class})
+    public ResponseEntity<CustomErrorResponse> handleNoSuchElement(NoSuchElementException ex){
+        HttpStatus returnHttpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+        CustomErrorResponse error = new CustomErrorResponse(returnHttpStatus, ex.getMessage());
+        ResponseEntity<CustomErrorResponse> returnVal = new ResponseEntity<>(error, returnHttpStatus);
+        return returnVal;
+    }
     @ExceptionHandler(value ={NotFoundException.class})
     public ResponseEntity<CustomErrorResponse> handleNotFoundException(NotFoundException ex){
         HttpStatus returnHttpStatus = HttpStatus.NOT_FOUND;
+        CustomErrorResponse error = new CustomErrorResponse(returnHttpStatus, ex.getMessage());
+        ResponseEntity<CustomErrorResponse> returnVal = new ResponseEntity<>(error, returnHttpStatus);
+        return returnVal;
+    }
+
+    @ExceptionHandler(value ={LowInventoryException.class})
+    public ResponseEntity<CustomErrorResponse> handleLowInventoryException(LowInventoryException ex){
+        HttpStatus returnHttpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
         CustomErrorResponse error = new CustomErrorResponse(returnHttpStatus, ex.getMessage());
         ResponseEntity<CustomErrorResponse> returnVal = new ResponseEntity<>(error, returnHttpStatus);
         return returnVal;

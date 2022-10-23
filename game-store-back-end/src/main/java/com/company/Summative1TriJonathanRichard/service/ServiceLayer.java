@@ -1,8 +1,11 @@
 package com.company.Summative1TriJonathanRichard.service;
 
+import com.company.Summative1TriJonathanRichard.exception.LowInventoryException;
 import com.company.Summative1TriJonathanRichard.exception.NotFoundException;
 import com.company.Summative1TriJonathanRichard.model.*;
 import com.company.Summative1TriJonathanRichard.repository.*;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -224,6 +227,12 @@ public class ServiceLayer {
         switch (invoice.getItemType()){
             case "game": {
                 Game fee = gameRepository.findById(invoice.getItemId()).get();
+                if(fee.getQuantity()>=invoice.getQuantity()) {
+                    fee.setQuantity(fee.getQuantity() - invoice.getQuantity());
+                    gameRepository.save(fee);
+                }else{
+                    throw new LowInventoryException("inventory low, please check stock");
+                }
                 //need to set the invoice's item type to calculate quantity correctly
                 invoice.setUnitPrice(fee.getPrice());
                 invoice.setSubtotal(invoice.getQuantity() * invoice.getUnitPrice());
@@ -242,6 +251,12 @@ public class ServiceLayer {
                 //
             } case "console":{
                 Console fee = consoleRepository.findById(invoice.getItemId()).get();
+                if(fee.getQuantity()>=invoice.getQuantity()) {
+                    fee.setQuantity(fee.getQuantity() - invoice.getQuantity());
+                    consoleRepository.save(fee);
+                }else{
+                    throw new LowInventoryException("inventory low, please check stock");
+                }
                 //need to set the invoice's item type to calculate quantity correctly
                 invoice.setUnitPrice(fee.getPrice());
                 invoice.setSubtotal(invoice.getQuantity() * invoice.getUnitPrice());
@@ -258,6 +273,12 @@ public class ServiceLayer {
 
             } case "tshirt":{
                 TShirt fee = tshirtRepository.findById(invoice.getItemId()).get();
+                if(fee.getQuantity()>=invoice.getQuantity()) {
+                    fee.setQuantity(fee.getQuantity() - invoice.getQuantity());
+                    tshirtRepository.save(fee);
+                }else{
+                    throw new LowInventoryException("inventory low, please check stock");
+                }
                 //need to set the invoice's item type to calculate quantity correctly
                 invoice.setUnitPrice(fee.getPrice());
                 invoice.setSubtotal(invoice.getQuantity() * invoice.getUnitPrice());
