@@ -1,8 +1,9 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
+  title: Game Store API
   description: |-
-    This is a video game store, which includes and inventory of games, consoles, and t-shirts. 
+    This is a video game store, which includes and inventory of games, consoles, and t-shirts.Included are GET, POST, DELETE, & UPDATE routes for games, consoles, t-shirts, and invoices. Additionals for t-shirts are get by color and get by size. Included for games is get by rating, get by studio, and get by title. Consoles has addition a route to get by manufacture. 
+    When it comes to invoice we have included a route to search by customer. Additionally when ever an invoice is made, it will also descrease the inventory of that item. Included Down below is more details about the API.
   version: v0
 servers:
   - url: http://localhost:8080
